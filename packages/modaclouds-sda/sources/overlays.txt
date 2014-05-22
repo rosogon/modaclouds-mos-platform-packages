@@ -1,0 +1,2 @@
+/opt curl-tar-gz http://ftp.info.uvt.ro/mos/modaclouds/monitoring/SDA-1.0/modaclouds-sda-1.0.tar.gz
+/opt/modaclouds-sda/bin/modaclouds-sda--run sources-file+x run.bash
