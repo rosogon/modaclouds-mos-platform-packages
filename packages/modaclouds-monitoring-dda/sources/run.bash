@@ -17,6 +17,6 @@ test -n "${MODACLOUDS_KNOWLEDGEBASE_ENDPOINT_PORT}"
 
 cd -- "${MODACLOUDS_MONITORING_DDA_HOME}"
 
-exec java -jar ./lib/rsp-services-csparql-0.4.3.jar
+exec java -jar ./lib/rsp-services-csparql-@{csparql_version}/rsp-services-csparql-@{csparql_version}.jar
 
 exit 1

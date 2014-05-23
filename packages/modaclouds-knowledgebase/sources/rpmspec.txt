@@ -1,10 +1,4 @@
 
-
-##
-## https://bitbucket.org/silviu001/mos-builder/raw/default/packages/SPECS/modaclouds-knowledgebase.spec
-##
-
-
 Name:         @{package_name}-@{distribution_version}
 Version:      @{package_version}
 Release:      @{package_revision}
