@@ -3,18 +3,17 @@ Name:         @{package_name}-@{distribution_version}
 Version:      @{package_version}
 Release:      @{package_revision}
 BuildArch:    @{package_architecture}
-URL:          https://github.com/imperial-modaclouds/Modaclouds-SDA
+URL:          https://github.com/imperial-modaclouds/modaclouds-sda-weka
 License:      Apache 2.0
-Summary:      MODAClouds monitoring SDA Matlab component
+Summary:      MODAClouds monitoring manager component
 
 Source:       @{package_name}--@{package_version}-@{package_revision}-@{package_architecture}--rootfs.cpio
 Provides:     @{package_name}
-Requires:     modaclouds-rt-matlab-mcr-r2013a
 Requires:     mosaic-rt-jre-7
 AutoReqProv:  no
 
 %description
-	MODAClouds monitoring SDA Matlab component
+	MODAClouds monitoring manager component
 
 
 %build

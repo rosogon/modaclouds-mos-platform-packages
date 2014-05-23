@@ -1,2 +1,2 @@
-/opt curl-tar-gz http://ftp.info.uvt.ro/mos/modaclouds/monitoring/SDA-1.0/modaclouds-sda-1.0.tar.gz
+/opt/@{package_name}/lib curl-tar-gz http://data.volution.ro/ciprian/public/modaclouds/dependencies/modaclouds-sda-matlab-@{sda_version}.tar.gz
 /opt/@{package_name}/bin/@{package_name}--run sources-file+x run.bash

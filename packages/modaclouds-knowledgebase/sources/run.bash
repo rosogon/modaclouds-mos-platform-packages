@@ -14,12 +14,10 @@ test -n "${MODACLOUDS_KNOWLEDGEBASE_ENDPOINT_IP}"
 test -n "${MODACLOUDS_KNOWLEDGEBASE_ENDPOINT_PORT}"
 test -n "${MODACLOUDS_KNOWLEDGEBASE_INITIALIZE}"
 
-cd -- "${MODACLOUDS_KNOWLEDGEBASE_HOME}"
-
 if test "${MODACLOUDS_KNOWLEDGEBASE_INITIALIZE}" == true ; then
 (
 	sleep 6s
-	exec ./bin/@{package_name}--initialize
+	exec "${MODACLOUDS_KNOWLEDGEBASE_HOME}/bin/@{package_name}--initialize"
 ) &
 fi
 

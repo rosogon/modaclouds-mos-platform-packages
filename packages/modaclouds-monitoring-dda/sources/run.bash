@@ -15,8 +15,14 @@ test -n "${MODACLOUDS_MONITORING_DDA_ENDPOINT_PORT}"
 test -n "${MODACLOUDS_KNOWLEDGEBASE_ENDPOINT_IP}"
 test -n "${MODACLOUDS_KNOWLEDGEBASE_ENDPOINT_PORT}"
 
-cd -- "${MODACLOUDS_MONITORING_DDA_HOME}"
+cd -- "${MODACLOUDS_MONITORING_DDA_HOME}/lib/rsp-services-csparql-@{csparql_version}"
 
-exec java -jar ./lib/rsp-services-csparql-@{csparql_version}/rsp-services-csparql-@{csparql_version}.jar
+sed -r \
+		-e "s#@\{csparql_ip\}#${MODACLOUDS_MONITORING_DDA_ENDPOINT_IP}#g" \
+		-e "s#@\{csparql_port\}#${MODACLOUDS_MONITORING_DDA_ENDPOINT_PORT}#g" \
+	>|./setup.properties \
+	<./setup.properties.orig
+
+exec java -jar ./rsp-services-csparql-@{csparql_version}.jar
 
 exit 1
