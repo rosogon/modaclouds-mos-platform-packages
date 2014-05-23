@@ -1,2 +1,2 @@
 /opt curl-tar-gz http://ftp.info.uvt.ro/mos/modaclouds/monitoring/DDA-0.4.3/modaclouds-dda-0.4.3.tar.gz
-/opt/modaclouds-dda/bin/modaclouds-dda--run sources-file+x run.bash
+/opt/@{package_name}/bin/@{package_name}--run sources-file+x run.bash

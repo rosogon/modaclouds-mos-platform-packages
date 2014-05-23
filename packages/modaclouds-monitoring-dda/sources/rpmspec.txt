@@ -36,4 +36,4 @@ AutoReqProv:  no
 
 %files
 	%defattr(-,root,root,-)
-	/opt/modaclouds-dda
+	/opt/@{package_name}
