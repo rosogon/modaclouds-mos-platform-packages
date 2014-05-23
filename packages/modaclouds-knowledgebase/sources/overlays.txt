@@ -1,0 +1,6 @@
+/opt/@{package_name}/lib curl-tar-gz http://www.eu.apache.org/dist/jena/binaries/jena-fuseki-@{jena_fuseki_version}-distribution.tar.gz
+/opt/@{package_name}/bin/@{package_name}--run sources-file+x run.bash
+/opt/@{package_name}/bin/@{package_name}--initialize sources-file+x initialize.bash
+/opt/@{package_name}/etc/configuration.ttl sources-file configuration.ttl
+/opt/@{package_name}/etc/ontology.ttl sources-file ontology.ttl
+/opt/@{package_name}/var/db mkdir
