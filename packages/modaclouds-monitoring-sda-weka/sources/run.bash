@@ -34,8 +34,6 @@ kb_server.port=${MODACLOUDS_KNOWLEDGEBASE_ENDPOINT_PORT}
 kb_server.address=${MODACLOUDS_KNOWLEDGEBASE_ENDPOINT_IP}
 EOS
 
-# FIXME: Also configure its own endpoint!
-
 exec java -jar ./sda-weka-@{sda_version}-jar-with-dependencies.jar \
 		"${MODACLOUDS_MONITORING_SDA_WEKA_ENDPOINT_PORT}"
 

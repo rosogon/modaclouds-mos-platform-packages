@@ -1,2 +1,2 @@
-/opt/@{package_name}/lib/monitoring-manager-@{manager_version}.jar curl-file http://data.volution.ro/ciprian/public/modaclouds/dependencies/modaclouds-monitoring-manager-@{manager_version}.jar
+/opt/@{package_name}/lib curl-tar-gz http://data.volution.ro/ciprian/public/modaclouds/dependencies/modaclouds-monitoring-manager-@{manager_version}.tar.gz
 /opt/@{package_name}/bin/@{package_name}--run sources-file+x run.bash
