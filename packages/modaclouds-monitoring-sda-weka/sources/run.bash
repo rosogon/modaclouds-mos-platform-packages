@@ -36,6 +36,7 @@ EOS
 
 # FIXME: Also configure its own endpoint!
 
-exec java -jar ./sda-weka-@{sda_version}-jar-with-dependencies.jar
+exec java -jar ./sda-weka-@{sda_version}-jar-with-dependencies.jar \
+		"${MODACLOUDS_MONITORING_SDA_WEKA_ENDPOINT_PORT}"
 
 exit 1
