@@ -35,7 +35,11 @@ kb_server.port=${MODACLOUDS_KNOWLEDGEBASE_ENDPOINT_PORT}
 kb_server.address=${MODACLOUDS_KNOWLEDGEBASE_ENDPOINT_IP}
 EOS
 
-# FIXME: Also configure its own endpoint!
+cat \
+	>|./port.txt \
+	<<EOS
+${MODACLOUDS_MONITORING_SDA_MATLAB_ENDPOINT_PORT}
+EOS
 
 exec ./run_main.sh "${MATHLAB_MCR}"
 
