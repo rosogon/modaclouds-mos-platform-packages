@@ -1,0 +1,108 @@
+{
+	"_schema" : "tag:ieat.ro,2014:mosaic:v2:mos-package-builder:descriptors:composite-package",
+	"_schema/version" : 1,
+	
+	"package" : {
+		"name" : "@{definitions:package:name}",
+		"version" : "@{definitions:package:version}",
+		"release" : "@{definitions:package:release}",
+		"architecture" : "i686",
+		"root" : "/opt/@{package:identifier}"
+	},
+	
+	"dependencies" : {
+		"provides" : ["@{definitions:package:name}"],
+		"requires" : [
+			"mosaic-rt-jre-7-32bit"
+		]
+	},
+	
+	"miscellaneous" : {
+		"license" : "apache-2.0",
+		"url" : "http://modaclouds.eu/",
+		"summary" : "MODAClouds services: monitoring SDA Weka"
+	},
+	
+	"overlays" : [
+		{
+			"generator" : "folders",
+			"target" : "@{package:root}",
+			"folders" : [
+				"/",
+				"/etc",
+				"/bin",
+				"/lib",
+				"/etc/sda-weka",
+				"/lib/sda-weka",
+				"/lib/scripts"
+			]
+		},
+		{
+			"generator" : "unarchiver",
+			"target" : "@{package:root}/lib/sda-weka",
+			"resource" : "sda-weka-distribution.tar.gz",
+			"format" : "tar+gzip",
+			"options" : {
+				"strip-components" : 1
+			}
+		},
+		{
+			"generator" : "file-creator",
+			"target" : "@{package:root}/lib/scripts/run.bash",
+			"resource" : "service-run.bash",
+			"executable" : true,
+			"expand" : true
+		},
+		{
+			"generator" : "renames",
+			"target" : "@{package:root}/lib/sda-weka",
+			"renames" : {
+				"main.jar" : "./sda-weka-@{definitions:versions:modaclouds:sda-weka}-jar-with-dependencies.jar"
+			}
+		},
+		{
+			"generator" : "symlinks",
+			"target" : "@{package:root}/lib/sda-weka",
+			"links" : {
+				"dda.properties" : "../../etc/sda-weka/dda.properties",
+				"kb.properties" : "../../etc/sda-weka/kb.properties"
+			}
+		},
+		{
+			"generator" : "symlinks",
+			"target" : "@{package:root}/bin",
+			"links" : {
+				"@{package:name}--run-service" : "../lib/scripts/run.bash"
+			}
+		}
+	],
+	
+	"resources" : {
+		"service-run.bash" : {
+			"generator" : "sources",
+			"path" : "service-run.bash"
+		},
+		"sda-weka-distribution.tar.gz" : {
+			"generator" : "fetcher",
+			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/modaclouds-monitoring-sda-weka-@{definitions:versions:modaclouds:sda-weka}-distribution.tar.gz"
+		}
+	},
+	
+	"definitions" : {
+		"package:name" : "modaclouds-services-monitoring-sda-weka",
+		"package:version" : "@{definitions:distribution:version}.@{definitions:distribution:release}_@{definitions:distribution:label}",
+		"package:release" : "@{execution:timestamp}",
+		"distribution:version" : "0.7.0",
+		"distribution:release" : "5",
+		"distribution:label" : "modaclouds",
+		"distribution:identifier" : "@{definitions:distribution:version}.@{definitions:distribution:release}_@{definitions:distribution:label}",
+		"resources:modaclouds:url:base" : "http://data.volution.ro/ciprian/public/modaclouds",
+		"resources:modaclouds:url:packages" : "@{definitions:resources:modaclouds:url:base}/packages",
+		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies",
+		"resources:modaclouds:url:suffix" : "@{definitions:distribution:identifier}",
+		"environment:SDA_WEKA_HOME" : "@{package:root}/lib/sda-weka",
+		"environment:SDA_WEKA_CONF" : "@{package:root}/etc/sda-weka",
+		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7-32bit",
+		"versions:modaclouds:sda-weka" : "1.0.1"
+	}
+}

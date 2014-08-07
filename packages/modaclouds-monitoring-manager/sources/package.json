@@ -1,0 +1,108 @@
+{
+	"_schema" : "tag:ieat.ro,2014:mosaic:v2:mos-package-builder:descriptors:composite-package",
+	"_schema/version" : 1,
+	
+	"package" : {
+		"name" : "@{definitions:package:name}",
+		"version" : "@{definitions:package:version}",
+		"release" : "@{definitions:package:release}",
+		"architecture" : "i686",
+		"root" : "/opt/@{package:identifier}"
+	},
+	
+	"dependencies" : {
+		"provides" : ["@{definitions:package:name}"],
+		"requires" : [
+			"mosaic-rt-jre-7-32bit"
+		]
+	},
+	
+	"miscellaneous" : {
+		"license" : "apache-2.0",
+		"url" : "http://modaclouds.eu/",
+		"summary" : "MODAClouds services: monitoring manager"
+	},
+	
+	"overlays" : [
+		{
+			"generator" : "folders",
+			"target" : "@{package:root}",
+			"folders" : [
+				"/",
+				"/etc",
+				"/bin",
+				"/lib",
+				"/etc/manager",
+				"/lib/manager",
+				"/lib/scripts"
+			]
+		},
+		{
+			"generator" : "unarchiver",
+			"target" : "@{package:root}/lib/manager",
+			"resource" : "manager-distribution.tar.gz",
+			"format" : "tar+gzip",
+			"options" : {
+				"strip-components" : 1
+			}
+		},
+		{
+			"generator" : "file-creator",
+			"target" : "@{package:root}/lib/scripts/run.bash",
+			"resource" : "service-run.bash",
+			"executable" : true,
+			"expand" : true
+		},
+		{
+			"generator" : "renames",
+			"target" : "@{package:root}/lib/manager",
+			"renames" : {
+				"main.jar" : "./monitoring-manager-@{definitions:versions:modaclouds:manager}.jar"
+			}
+		},
+		{
+			"generator" : "symlinks",
+			"target" : "@{package:root}/lib/manager",
+			"links" : {
+				"monitoring_manager.properties" : "../../etc/manager/monitoring_manager.properties",
+				"kb.properties" : "../../etc/manager/kb.properties"
+			}
+		},
+		{
+			"generator" : "symlinks",
+			"target" : "@{package:root}/bin",
+			"links" : {
+				"@{package:name}--run-service" : "../lib/scripts/run.bash"
+			}
+		}
+	],
+	
+	"resources" : {
+		"service-run.bash" : {
+			"generator" : "sources",
+			"path" : "service-run.bash"
+		},
+		"manager-distribution.tar.gz" : {
+			"generator" : "fetcher",
+			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/modaclouds-monitoring-manager-@{definitions:versions:modaclouds:manager}-distribution.tar.gz"
+		}
+	},
+	
+	"definitions" : {
+		"package:name" : "modaclouds-services-monitoring-manager",
+		"package:version" : "@{definitions:distribution:version}.@{definitions:distribution:release}_@{definitions:distribution:label}",
+		"package:release" : "@{execution:timestamp}",
+		"distribution:version" : "0.7.0",
+		"distribution:release" : "5",
+		"distribution:label" : "modaclouds",
+		"distribution:identifier" : "@{definitions:distribution:version}.@{definitions:distribution:release}_@{definitions:distribution:label}",
+		"resources:modaclouds:url:base" : "http://data.volution.ro/ciprian/public/modaclouds",
+		"resources:modaclouds:url:packages" : "@{definitions:resources:modaclouds:url:base}/packages",
+		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies",
+		"resources:modaclouds:url:suffix" : "@{definitions:distribution:identifier}",
+		"environment:MANAGER_HOME" : "@{package:root}/lib/manager",
+		"environment:MANAGER_CONF" : "@{package:root}/etc/manager",
+		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7-32bit",
+		"versions:modaclouds:manager" : "1.0.1"
+	}
+}

@@ -1,4 +1,0 @@
-/opt/@{package_name}/lib curl-tar-gz http://data.volution.ro/ciprian/public/modaclouds/dependencies/rsp-services-csparql-@{csparql_version}.tar.gz
-/opt/@{package_name}/lib/rsp-services-csparql-@{csparql_version}/logback.xml curl-file http://data.volution.ro/ciprian/public/modaclouds/dependencies/rsp-services-csparql-@{csparql_version}-logback.xml
-/opt/@{package_name}/lib/rsp-services-csparql-@{csparql_version}/setup.properties.orig curl-file http://data.volution.ro/ciprian/public/modaclouds/dependencies/rsp-services-csparql-@{csparql_version}-setup.properties
-/opt/@{package_name}/bin/@{package_name}--run sources-file+x run.bash

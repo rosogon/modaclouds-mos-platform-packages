@@ -1,1 +1,0 @@
-jena_fuseki_version 1.0.1
