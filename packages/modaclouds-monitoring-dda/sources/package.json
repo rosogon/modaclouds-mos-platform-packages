@@ -110,19 +110,13 @@
 	
 	"definitions" : {
 		"package:name" : "modaclouds-services-monitoring-dda",
-		"package:version" : "@{definitions:distribution:version}.@{definitions:distribution:release}_@{definitions:distribution:label}",
+		"package:version" : "0.7.0_dev",
 		"package:release" : "@{execution:timestamp}",
-		"distribution:version" : "0.7.0",
-		"distribution:release" : "5",
-		"distribution:label" : "modaclouds",
-		"distribution:identifier" : "@{definitions:distribution:version}.@{definitions:distribution:release}_@{definitions:distribution:label}",
+		"versions:modaclouds:csparql" : "0.4.3",
 		"resources:modaclouds:url:base" : "http://data.volution.ro/ciprian/public/modaclouds",
-		"resources:modaclouds:url:packages" : "@{definitions:resources:modaclouds:url:base}/packages",
 		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies",
-		"resources:modaclouds:url:suffix" : "@{definitions:distribution:identifier}",
 		"environment:CSPARQL_HOME" : "@{package:root}/lib/csparql",
 		"environment:CSPARQL_CONF" : "@{package:root}/etc/csparql",
-		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7-32bit",
-		"versions:modaclouds:csparql" : "0.4.3"
+		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7-32bit"
 	}
 }
