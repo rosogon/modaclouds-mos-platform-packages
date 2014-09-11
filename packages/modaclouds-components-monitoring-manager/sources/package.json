@@ -1,0 +1,67 @@
+{
+	"_schema" : "tag:ieat.ro,2014:mosaic:v2:mos-package-builder:descriptors:composite-package",
+	"_schema/version" : 1,
+	
+	"package" : {
+		"name" : "@{definitions:package:name}",
+		"version" : "@{definitions:package:version}",
+		"release" : "@{definitions:package:release}",
+		"architecture" : "i686",
+		"root" : "/opt/@{package:identifier}"
+	},
+	
+	"dependencies" : {
+		"requires" : [
+			"modaclouds-services-monitoring-manager == @{package:version}",
+			"glibc-32bit"
+		]
+	},
+	
+	"miscellaneous" : {
+		"license" : "apache-2.0",
+		"url" : "http://modaclouds.ieat.ro/",
+		"summary" : "mOSAIC components: ME2 component proxy"
+	},
+	
+	"overlays" : [
+		{
+			"generator" : "folders",
+			"target" : "@{package:root}",
+			"folders" : [
+				"/",
+				"/env",
+				"/env/paths"
+			]
+		},
+		{
+			"generator" : "unarchiver",
+			"target" : "@{package:root}",
+			"resource" : "modaclouds-components-monitoring-manager.cpio.gz",
+			"format" : "cpio+gzip"
+		},
+		{
+			"generator" : "symlinks",
+			"target" : "@{package:root}/env/paths",
+			"links" : {
+				"51:bin" : "/bin",
+				"52:usr-bin" : "/usr/bin"
+			}
+		}
+	],
+	
+	"resources" : {
+		"modaclouds-components-monitoring-manager.cpio.gz" : {
+			"generator" : "fetcher",
+			"uri" : "@{definitions:resources:url:base}/modaclouds-components-monitoring-manager--@{definitions:resources:url:suffix}.cpio.gz",
+			"cache" : "modaclouds-components-monitoring-manager--@{definitions:resources:url:suffix}.cpio.gz"
+		}
+	},
+	
+	"definitions" : {
+		"package:name" : "modaclouds-components-monitoring-manager",
+		"package:version" : "0.7.0_dev",
+		"package:release" : "@{execution:timestamp}",
+		"resources:url:base" : "http://data.volution.ro/ciprian/public/modaclouds/packages",
+		"resources:url:suffix" : "@{definitions:package:version}"
+	}
+}
