@@ -20,6 +20,7 @@
 			"mosaic-components-mysql == @{package:version}",
 			"mosaic-components-me2cp == @{package:version}",
 			"mosaic-components-httpg == @{package:version}",
+			"mosaic-object-store == @{package:version}",
 			"modaclouds-components-knowledgebase == @{package:version}",
 			"modaclouds-components-monitoring-manager == @{package:version}",
 			"modaclouds-components-monitoring-dda == @{package:version}",
@@ -41,7 +42,8 @@
 			"folders" : [
 				"/",
 				"/env",
-				"/env/paths"
+				"/env/paths",
+				"/env/variables"
 			]
 		},
 		{
@@ -49,6 +51,18 @@
 			"target" : "@{package:root}",
 			"resource" : "mosaic-node-boot.cpio.gz",
 			"format" : "cpio+gzip"
+		},
+		{
+			"generator" : "folders",
+			"target" : "@{package:root}",
+			"folders" : ["/lib/mosaic-platform-definitions"]
+		},
+		{
+			"generator" : "symlinks",
+			"target" : "@{package:root}/env/variables",
+			"links" : {
+				"@@a:mosaic_node_definitions" : "../../lib/mosaic-platform-definitions"
+			}
 		},
 		{
 			"generator" : "symlinks",
@@ -62,6 +76,7 @@
 				"31:mosaic-components-mysql" : "/opt/mosaic-components-mysql-@{package:version}/bin",
 				"31:mosaic-components-me2cp" : "/opt/mosaic-components-me2cp-@{package:version}/bin",
 				"31:mosaic-components-httpg" : "/opt/mosaic-components-httpg-@{package:version}/bin",
+				"31:mosaic-object-store" : "/opt/mosaic-object-store-@{package:version}/bin",
 				"31:modaclouds-components-knowlegebase" : "/opt/mosaic-components-knowledgebase-@{package:version}/bin",
 				"31:modaclouds-components-monitoring-manager" : "/opt/mosaic-components-monitoring-manager-@{package:version}/bin",
 				"31:modaclouds-components-monitoring-dda" : "/opt/mosaic-components-monitoring-dda-@{package:version}/bin",
@@ -69,6 +84,25 @@
 				"31:modaclouds-components-monitoring-sda-weka" : "/opt/mosaic-components-monitoring-sda-weka-@{package:version}/bin",
 				"51:bin" : "/bin",
 				"52:usr-bin" : "/usr/bin"
+			}
+		},
+		{
+			"generator" : "symlinks",
+			"target" : "@{package:root}/lib/mosaic-platform-definitions",
+			"links" : {
+				"mosaic-node" : "/opt/mosaic-node-@{package:version}/lib/mosaic-platform-definitions",
+				"mosaic-components-couchdb" : "/opt/mosaic-components-couchdb-@{package:version}/lib/mosaic-platform-definitions",
+				"mosaic-components-rabbitmq" : "/opt/mosaic-components-rabbitmq-@{package:version}/lib/mosaic-platform-definitions",
+				"mosaic-components-riak-kv" : "/opt/mosaic-components-riak-kv-@{package:version}/lib/mosaic-platform-definitions",
+				"mosaic-components-mysql" : "/opt/mosaic-components-mysql-@{package:version}/lib/mosaic-platform-definitions",
+				"mosaic-components-me2cp" : "/opt/mosaic-components-me2cp-@{package:version}/lib/mosaic-platform-definitions",
+				"mosaic-components-httpg" : "/opt/mosaic-components-httpg-@{package:version}/lib/mosaic-platform-definitions",
+				"mosaic-object-store" : "/opt/mosaic-object-store-@{package:version}/lib/mosaic-platform-definitions",
+				"modaclouds-components-knowledgebase" : "/opt/modaclouds-components-knowledgebase-@{package:version}/lib/mosaic-platform-definitions",
+				"modaclouds-components-monitoring-manager" : "/opt/modaclouds-components-monitoring-manager-@{package:version}/lib/mosaic-platform-definitions",
+				"modaclouds-components-monitoring-dda" : "/opt/modaclouds-components-monitoring-dda-@{package:version}/lib/mosaic-platform-definitions",
+				"modaclouds-components-monitoring-sda-matlab" : "/opt/modaclouds-components-monitoring-sda-matlab-@{package:version}/lib/mosaic-platform-definitions",
+				"modaclouds-components-monitoring-sda-weka" : "/opt/modaclouds-components-monitoring-sda-weka-@{package:version}/lib/mosaic-platform-definitions"
 			}
 		}
 	],
