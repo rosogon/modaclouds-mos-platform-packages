@@ -30,7 +30,8 @@
 			"folders" : [
 				"/",
 				"/env",
-				"/env/paths"
+				"/env/paths",
+				"/env/variables"
 			]
 		},
 		{
@@ -45,6 +46,13 @@
 			"links" : {
 				"51:bin" : "/bin",
 				"52:usr-bin" : "/usr/bin"
+			}
+		},
+		{
+			"generator" : "symlinks",
+			"target" : "@{package:root}/env/variables",
+			"links" : {
+				"@@a:modaclouds_monitoring_sda_matlab_run" : "/opt/modaclouds-services-monitoring-sda-matlab-@{package:version}/bin/modaclouds-services-monitoring-sda-matlab--run-service"
 			}
 		}
 	],
