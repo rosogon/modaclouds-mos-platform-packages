@@ -19,8 +19,8 @@
 	
 	"miscellaneous" : {
 		"license" : "apache-2.0",
-		"url" : "http://modaclouds.ieat.ro/",
-		"summary" : "mOSAIC components: ME2 component proxy"
+		"url" : "http://www.modaclouds.eu/",
+		"summary" : "MODAClouds components: monitoring SDA Weka"
 	},
 	
 	"overlays" : [
