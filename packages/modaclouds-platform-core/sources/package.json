@@ -19,7 +19,6 @@
 			"mosaic-components-riak-kv == @{package:version}",
 			"mosaic-components-mysql == @{package:version}",
 			"mosaic-components-me2cp == @{package:version}",
-			"mosaic-components-httpg == @{package:version}",
 			"mosaic-object-store == @{package:version}",
 			"modaclouds-components-knowledgebase == @{package:version}",
 			"modaclouds-components-monitoring-manager == @{package:version}",
