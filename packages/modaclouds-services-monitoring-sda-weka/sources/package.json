@@ -38,6 +38,20 @@
 			]
 		},
 		{
+			"generator" : "file-creator",
+			"target" : "@{package:root}/lib/scripts/run.bash",
+			"resource" : "service-run.bash",
+			"executable" : true,
+			"expand" : true
+		},
+		{
+			"generator" : "symlinks",
+			"target" : "@{package:root}/bin",
+			"links" : {
+				"@{package:name}--run-service" : "../lib/scripts/run.bash"
+			}
+		},
+		{
 			"generator" : "unarchiver",
 			"target" : "@{package:root}/lib/sda-weka",
 			"resource" : "sda-weka-distribution.tar.gz",
@@ -47,13 +61,6 @@
 			}
 		},
 		{
-			"generator" : "file-creator",
-			"target" : "@{package:root}/lib/scripts/run.bash",
-			"resource" : "service-run.bash",
-			"executable" : true,
-			"expand" : true
-		},
-		{
 			"generator" : "renames",
 			"target" : "@{package:root}/lib/sda-weka",
 			"renames" : {
@@ -61,19 +68,26 @@
 			}
 		},
 		{
-			"generator" : "symlinks",
+			"generator" : "unlinks",
 			"target" : "@{package:root}/lib/sda-weka",
-			"links" : {
-				"dda.properties" : "../../etc/sda-weka/dda.properties",
-				"kb.properties" : "../../etc/sda-weka/kb.properties"
-			}
+			"unlinks" : [
+				"/dda.properties",
+				"/kb.properties"
+			]
 		},
 		{
-			"generator" : "symlinks",
-			"target" : "@{package:root}/bin",
-			"links" : {
-				"@{package:name}--run-service" : "../lib/scripts/run.bash"
-			}
+			"generator" : "file-creator",
+			"target" : "@{package:root}/etc/sda-weka/dda.properties",
+			"resource" : "dda.properties",
+			"executable" : false,
+			"expand" : true
+		},
+		{
+			"generator" : "file-creator",
+			"target" : "@{package:root}/etc/sda-weka/kb.properties",
+			"resource" : "kb.properties",
+			"executable" : false,
+			"expand" : true
 		}
 	],
 	
@@ -85,18 +99,41 @@
 		"sda-weka-distribution.tar.gz" : {
 			"generator" : "fetcher",
 			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/modaclouds-monitoring-sda-weka-@{definitions:versions:modaclouds:sda-weka}-distribution.tar.gz"
+		},
+		"dda.properties" : {
+			"generator" : "sources",
+			"path" : "dda.properties"
+		},
+		"kb.properties" : {
+			"generator" : "sources",
+			"path" : "kb.properties"
 		}
 	},
 	
 	"definitions" : {
+		
 		"package:name" : "modaclouds-services-monitoring-sda-weka",
 		"package:version" : "0.7.0_dev",
 		"package:release" : "@{execution:timestamp}",
-		"versions:modaclouds:sda-weka" : "1.0.1",
+		
+		"versions:modaclouds:sda-weka" : "1.0.2",
 		"resources:modaclouds:url:base" : "http://data.volution.ro/ciprian/public/modaclouds",
 		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies",
+		
 		"environment:SDA_WEKA_HOME" : "@{package:root}/lib/sda-weka",
 		"environment:SDA_WEKA_CONF" : "@{package:root}/etc/sda-weka",
-		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7-32bit"
+		"environment:SDA_WEKA_ENDPOINT_IP" : "0.0.0.0",
+		"environment:SDA_WEKA_ENDPOINT_PORT" : "8085",
+		
+		"environment:DDA_ENDPOINT_IP" : "0.0.0.0",
+		"environment:DDA_ENDPOINT_PORT" : "8083",
+		
+		"environment:KNOWLEDGEBASE_ENDPOINT_IP" : "0.0.0.0",
+		"environment:KNOWLEDGEBASE_ENDPOINT_PORT" : "8081",
+		"environment:KNOWLEDGEBASE_DATASET_PATH" : "/modaclouds/kb",
+		
+		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7-32bit",
+		"environment:PATH" : "@{definitions:environment:JAVA_HOME}/bin:/usr/bin:/bin",
+		"environment:TMPDIR" : "/tmp/@{package:identifier}"
 	}
 }

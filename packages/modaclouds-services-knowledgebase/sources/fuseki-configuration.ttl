@@ -10,7 +10,7 @@
    ) .
 
 <#service1>  rdf:type fuseki:Service ;
-    fuseki:name                       "modaclouds/kb" ;
+    fuseki:name                       "@@{FUSEKI_DATASET_PATH}" ;
     fuseki:serviceQuery               "query" ;
     fuseki:serviceQuery               "sparql" ;
     fuseki:serviceUpdate              "update" ;
@@ -20,7 +20,7 @@
     .
 
 <#dataset> rdf:type      tdb:DatasetTDB ;
-    tdb:location "@{definitions:environment:FUSEKI_VAR}" ;
+    tdb:location "@@{FUSEKI_VAR}" ;
     ja:context [ ja:cxtName "arq:queryTimeout" ;  ja:cxtValue "1000" ] ;
     tdb:unionDefaultGraph true ;
      .

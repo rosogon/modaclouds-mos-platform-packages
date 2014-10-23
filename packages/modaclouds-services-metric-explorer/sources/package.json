@@ -37,18 +37,18 @@
 			]
 		},
 		{
-			"generator" : "file-creator",
-			"target" : "@{package:root}/lib/scripts/run.bash",
-			"resource" : "service-run.bash",
-			"executable" : true,
-			"expand" : true
-		},
-		{
 			"generator" : "symlinks",
 			"target" : "@{package:root}/bin",
 			"links" : {
 				"@{package:name}--run-service" : "../lib/scripts/run.bash"
 			}
+		},
+		{
+			"generator" : "file-creator",
+			"target" : "@{package:root}/lib/scripts/run.bash",
+			"resource" : "service-run.bash",
+			"executable" : true,
+			"expand" : true
 		}
 	],
 	

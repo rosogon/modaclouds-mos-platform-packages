@@ -29,22 +29,25 @@
 			"target" : "@{package:root}",
 			"folders" : [
 				"/",
-				"/etc",
 				"/bin",
 				"/lib",
-				"/etc/csparql",
 				"/lib/csparql",
 				"/lib/scripts"
 			]
 		},
 		{
-			"generator" : "unarchiver",
-			"target" : "@{package:root}/lib/csparql",
-			"resource" : "csparql-distribution.tar.gz",
-			"format" : "tar+gzip",
-			"options" : {
-				"strip-components" : 1
+			"generator" : "symlinks",
+			"target" : "@{package:root}/bin",
+			"links" : {
+				"@{package:name}--run-service" : "../lib/scripts/run.bash"
 			}
+		},
+		{
+			"generator" : "file-creator",
+			"target" : "@{package:root}/lib/csparql/csparql.jar",
+			"resource" : "csparql.jar",
+			"executable" : false,
+			"expand" : false
 		},
 		{
 			"generator" : "file-creator",
@@ -54,37 +57,10 @@
 			"expand" : true
 		},
 		{
-			"generator" : "file-creator",
-			"target" : "@{package:root}/etc/csparql/setup.properties-template",
-			"resource" : "csparql-setup.properties",
-			"expand" : true
-		},
-		{
-			"generator" : "file-creator",
-			"target" : "@{package:root}/etc/csparql/logback.xml",
-			"resource" : "csparql-logback.xml",
-			"expand" : true
-		},
-		{
 			"generator" : "renames",
 			"target" : "@{package:root}/lib/csparql",
 			"renames" : {
-				"main.jar" : "./rsp-services-csparql-@{definitions:versions:modaclouds:csparql}.jar"
-			}
-		},
-		{
-			"generator" : "symlinks",
-			"target" : "@{package:root}/lib/csparql",
-			"links" : {
-				"setup.properties" : "../../etc/csparql/setup.properties",
-				"logback.xml" : "../../etc/csparql/logback.xml"
-			}
-		},
-		{
-			"generator" : "symlinks",
-			"target" : "@{package:root}/bin",
-			"links" : {
-				"@{package:name}--run-service" : "../lib/scripts/run.bash"
+				"main.jar" : "csparql.jar"
 			}
 		}
 	],
@@ -94,29 +70,28 @@
 			"generator" : "sources",
 			"path" : "service-run.bash"
 		},
-		"csparql-setup.properties" : {
-			"generator" : "sources",
-			"path" : "csparql-setup.properties"
-		},
-		"csparql-logback.xml" : {
-			"generator" : "sources",
-			"path" : "csparql-logback.xml"
-		},
-		"csparql-distribution.tar.gz" : {
+		"csparql.jar" : {
 			"generator" : "fetcher",
-			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/rsp-services-csparql-@{definitions:versions:modaclouds:csparql}-distribution.tar.gz"
+			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/rsp-services-csparql-@{definitions:versions:modaclouds:csparql}.jar"
 		}
 	},
 	
 	"definitions" : {
+		
 		"package:name" : "modaclouds-services-monitoring-dda",
 		"package:version" : "0.7.0_dev",
 		"package:release" : "@{execution:timestamp}",
-		"versions:modaclouds:csparql" : "0.4.3",
+		
+		"versions:modaclouds:csparql" : "0.4.6.1",
 		"resources:modaclouds:url:base" : "http://data.volution.ro/ciprian/public/modaclouds",
 		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies",
+		
 		"environment:CSPARQL_HOME" : "@{package:root}/lib/csparql",
-		"environment:CSPARQL_CONF" : "@{package:root}/etc/csparql",
-		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7-32bit"
+		"environment:CSPARQL_ENDPOINT_IP" : "0.0.0.0",
+		"environment:CSPARQL_ENDPOINT_PORT" : "8083",
+		
+		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7-32bit",
+		"environment:PATH" : "@{definitions:environment:JAVA_HOME}/bin:/usr/bin:/bin",
+		"environment:TMPDIR" : "/tmp/@{package:identifier}"
 	}
 }

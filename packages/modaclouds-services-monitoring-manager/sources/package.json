@@ -29,13 +29,18 @@
 			"target" : "@{package:root}",
 			"folders" : [
 				"/",
-				"/etc",
 				"/bin",
 				"/lib",
-				"/etc/manager",
 				"/lib/manager",
 				"/lib/scripts"
 			]
+		},
+		{
+			"generator" : "symlinks",
+			"target" : "@{package:root}/bin",
+			"links" : {
+				"@{package:name}--run-service" : "../lib/scripts/run.bash"
+			}
 		},
 		{
 			"generator" : "unarchiver",
@@ -59,21 +64,6 @@
 			"renames" : {
 				"main.jar" : "./monitoring-manager-@{definitions:versions:modaclouds:manager}.jar"
 			}
-		},
-		{
-			"generator" : "symlinks",
-			"target" : "@{package:root}/lib/manager",
-			"links" : {
-				"monitoring_manager.properties" : "../../etc/manager/monitoring_manager.properties",
-				"kb.properties" : "../../etc/manager/kb.properties"
-			}
-		},
-		{
-			"generator" : "symlinks",
-			"target" : "@{package:root}/bin",
-			"links" : {
-				"@{package:name}--run-service" : "../lib/scripts/run.bash"
-			}
 		}
 	],
 	
@@ -89,14 +79,34 @@
 	},
 	
 	"definitions" : {
+		
 		"package:name" : "modaclouds-services-monitoring-manager",
 		"package:version" : "0.7.0_dev",
 		"package:release" : "@{execution:timestamp}",
-		"versions:modaclouds:manager" : "1.0.1",
+		
+		"versions:modaclouds:manager" : "1.1.2",
 		"resources:modaclouds:url:base" : "http://data.volution.ro/ciprian/public/modaclouds",
 		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies",
+		
 		"environment:MANAGER_HOME" : "@{package:root}/lib/manager",
-		"environment:MANAGER_CONF" : "@{package:root}/etc/manager",
-		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7-32bit"
+		"environment:MANAGER_ENDPOINT_IP" : "0.0.0.0",
+		"environment:MANAGER_ENDPOINT_PORT" : "8082",
+		
+		"environment:DDA_ENDPOINT_IP" : "0.0.0.0",
+		"environment:DDA_ENDPOINT_PORT" : "8083",
+		
+		"environment:SDA_MATLAB_ENDPOINT_IP" : "0.0.0.0",
+		"environment:SDA_MATLAB_ENDPOINT_PORT" : "8084",
+		
+		"environment:SDA_WEKA_ENDPOINT_IP" : "0.0.0.0",
+		"environment:SDA_WEKA_ENDPOINT_PORT" : "8085",
+		
+		"environment:KNOWLEDGEBASE_ENDPOINT_IP" : "0.0.0.0",
+		"environment:KNOWLEDGEBASE_ENDPOINT_PORT" : "8081",
+		"environment:KNOWLEDGEBASE_DATASET_PATH" : "/modaclouds/kb",
+		
+		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7-32bit",
+		"environment:PATH" : "@{definitions:environment:JAVA_HOME}/bin:/usr/bin:/bin",
+		"environment:TMPDIR" : "/tmp/@{package:identifier}"
 	}
 }

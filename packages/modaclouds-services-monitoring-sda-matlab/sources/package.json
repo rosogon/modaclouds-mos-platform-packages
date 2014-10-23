@@ -30,13 +30,27 @@
 			"target" : "@{package:root}",
 			"folders" : [
 				"/",
-				"/etc",
 				"/bin",
+				"/etc",
 				"/lib",
 				"/etc/sda-matlab",
 				"/lib/sda-matlab",
 				"/lib/scripts"
 			]
+		},
+		{
+			"generator" : "file-creator",
+			"target" : "@{package:root}/lib/scripts/run.bash",
+			"resource" : "service-run.bash",
+			"executable" : true,
+			"expand" : true
+		},
+		{
+			"generator" : "symlinks",
+			"target" : "@{package:root}/bin",
+			"links" : {
+				"@{package:name}--run-service" : "../lib/scripts/run.bash"
+			}
 		},
 		{
 			"generator" : "unarchiver",
@@ -48,27 +62,43 @@
 			}
 		},
 		{
-			"generator" : "file-creator",
-			"target" : "@{package:root}/lib/scripts/run.bash",
-			"resource" : "service-run.bash",
-			"executable" : true,
-			"expand" : true
+			"generator" : "unlinks",
+			"target" : "@{package:root}/lib/sda-matlab",
+			"unlinks" : [
+				"/lib/dda.properties",
+				"/lib/kb.properties",
+				"/port.txt",
+				"/run_main.sh"
+			]
 		},
 		{
 			"generator" : "symlinks",
 			"target" : "@{package:root}/lib/sda-matlab",
 			"links" : {
-				"dda.properties" : "../../etc/sda-matlab/dda.properties",
-				"kb.properties" : "../../etc/sda-matlab/kb.properties",
-				"port.txt" : "../../etc/sda-matlab/port.txt"
+				"/lib/dda.properties" : "/proc/self/cwd/dda.properties",
+				"/lib/kb.properties" : "/proc/self/cwd/kb.properties"
 			}
 		},
 		{
-			"generator" : "symlinks",
-			"target" : "@{package:root}/bin",
-			"links" : {
-				"@{package:name}--run-service" : "../lib/scripts/run.bash"
-			}
+			"generator" : "file-creator",
+			"target" : "@{package:root}/etc/sda-matlab/dda.properties",
+			"resource" : "dda.properties",
+			"executable" : false,
+			"expand" : true
+		},
+		{
+			"generator" : "file-creator",
+			"target" : "@{package:root}/etc/sda-matlab/kb.properties",
+			"resource" : "kb.properties",
+			"executable" : false,
+			"expand" : true
+		},
+		{
+			"generator" : "file-creator",
+			"target" : "@{package:root}/etc/sda-matlab/port.txt",
+			"resource" : "port.txt",
+			"executable" : false,
+			"expand" : true
 		}
 	],
 	
@@ -80,19 +110,46 @@
 		"sda-matlab-distribution.tar.gz" : {
 			"generator" : "fetcher",
 			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/modaclouds-monitoring-sda-matlab-@{definitions:versions:modaclouds:sda-matlab}-distribution.tar.gz"
+		},
+		"dda.properties" : {
+			"generator" : "sources",
+			"path" : "dda.properties"
+		},
+		"kb.properties" : {
+			"generator" : "sources",
+			"path" : "kb.properties"
+		},
+		"port.txt" : {
+			"generator" : "sources",
+			"path" : "port.txt"
 		}
 	},
 	
 	"definitions" : {
+		
 		"package:name" : "modaclouds-services-monitoring-sda-matlab",
 		"package:version" : "0.7.0_dev",
 		"package:release" : "@{execution:timestamp}",
-		"versions:modaclouds:sda-matlab" : "1.0.2",
+		
+		"versions:modaclouds:sda-matlab" : "1.1",
 		"resources:modaclouds:url:base" : "http://data.volution.ro/ciprian/public/modaclouds",
 		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies",
+		
 		"environment:SDA_MATLAB_HOME" : "@{package:root}/lib/sda-matlab",
 		"environment:SDA_MATLAB_CONF" : "@{package:root}/etc/sda-matlab",
+		"environment:SDA_MATLAB_ENDPOINT_IP" : "0.0.0.0",
+		"environment:SDA_MATLAB_ENDPOINT_PORT" : "8084",
+		
+		"environment:DDA_ENDPOINT_IP" : "0.0.0.0",
+		"environment:DDA_ENDPOINT_PORT" : "8083",
+		
+		"environment:KNOWLEDGEBASE_ENDPOINT_IP" : "0.0.0.0",
+		"environment:KNOWLEDGEBASE_ENDPOINT_PORT" : "8081",
+		"environment:KNOWLEDGEBASE_DATASET_PATH" : "/modaclouds/kb",
+		
 		"environment:MCR_HOME" : "/opt/modaclouds-rt-matlab-mcr-r2013a/v81",
-		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7"
+		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7",
+		"environment:PATH" : "@{definitions:environment:JAVA_HOME}/bin:/usr/bin:/bin",
+		"environment:TMPDIR" : "/tmp/@{package:identifier}"
 	}
 }

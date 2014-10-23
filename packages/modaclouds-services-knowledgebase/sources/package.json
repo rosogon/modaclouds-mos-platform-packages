@@ -13,8 +13,7 @@
 	"dependencies" : {
 		"provides" : ["@{definitions:package:name}"],
 		"requires" : [
-			"mosaic-rt-jre-7-32bit",
-			"mosaic-rt-ruby-v1.9-32bit"
+			"mosaic-rt-jre-7-32bit"
 		]
 	},
 	
@@ -57,29 +56,15 @@
 		},
 		{
 			"generator" : "file-creator",
-			"target" : "@{package:root}/lib/scripts/initialize.bash",
-			"resource" : "service-initialize.bash",
-			"executable" : true,
-			"expand" : true
-		},
-		{
-			"generator" : "file-creator",
 			"target" : "@{package:root}/etc/fuseki/configuration.ttl",
 			"resource" : "fuseki-configuration.ttl",
-			"expand" : true
-		},
-		{
-			"generator" : "file-creator",
-			"target" : "@{package:root}/etc/fuseki/ontology.ttl",
-			"resource" : "fuseki-ontology.ttl",
 			"expand" : true
 		},
 		{
 			"generator" : "symlinks",
 			"target" : "@{package:root}/bin",
 			"links" : {
-				"@{package:name}--run-service" : "../lib/scripts/run.bash",
-				"@{package:name}--initialize-service" : "../lib/scripts/initialize.bash"
+				"@{package:name}--run-service" : "../lib/scripts/run.bash"
 			}
 		}
 	],
@@ -89,17 +74,9 @@
 			"generator" : "sources",
 			"path" : "service-run.bash"
 		},
-		"service-initialize.bash" : {
-			"generator" : "sources",
-			"path" : "service-initialize.bash"
-		},
 		"fuseki-configuration.ttl" : {
 			"generator" : "sources",
 			"path" : "fuseki-configuration.ttl"
-		},
-		"fuseki-ontology.ttl" : {
-			"generator" : "sources",
-			"path" : "fuseki-ontology.ttl"
 		},
 		"fuseki-distribution.tar.gz" : {
 			"generator" : "fetcher",
@@ -108,16 +85,24 @@
 	},
 	
 	"definitions" : {
+		
 		"package:name" : "modaclouds-services-knowledgebase",
 		"package:version" : "0.7.0_dev",
 		"package:release" : "@{execution:timestamp}",
-		"versions:modaclouds:fuseki" : "1.0.1",
+		
+		"versions:modaclouds:fuseki" : "1.1.1",
 		"resources:modaclouds:url:base" : "http://data.volution.ro/ciprian/public/modaclouds",
 		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies",
+		
 		"environment:FUSEKI_HOME" : "@{package:root}/lib/fuseki",
 		"environment:FUSEKI_CONF" : "@{package:root}/etc/fuseki",
 		"environment:FUSEKI_VAR" : "@{package:root}/var/fuseki",
+		"environment:FUSEKI_ENDPOINT_IP" : "0.0.0.0",
+		"environment:FUSEKI_ENDPOINT_PORT" : "8081",
+		"environment:FUSEKI_DATASET_PATH" : "/modaclouds/kb",
+		
 		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7-32bit",
-		"environment:RUBY_HOME" : "/opt/mosaic-rt-ruby-v1.9-32bit"
+		"environment:PATH" : "@{definitions:environment:JAVA_HOME}/bin:/usr/bin:/bin",
+		"environment:TMPDIR" : "/tmp/@{package:identifier}"
 	}
 }
