@@ -25,6 +25,8 @@
 			"modaclouds-components-monitoring-dda == @{package:version}",
 			"modaclouds-components-monitoring-sda-matlab == @{package:version}",
 			"modaclouds-components-monitoring-sda-weka == @{package:version}",
+			"modaclouds-components-load-balancer-controller == @{package:version}",
+			"modaclouds-components-load-balancer-reasoner == @{package:version}",
 			"modaclouds-components-metric-explorer == @{package:version}",
 			"modaclouds-components-metric-importer == @{package:version}"
 		]
@@ -97,6 +99,8 @@
 				"31:modaclouds-components-monitoring-dda" : "/opt/modaclouds-components-monitoring-dda-@{package:version}/bin",
 				"31:modaclouds-components-monitoring-sda-matlab" : "/opt/modaclouds-components-monitoring-sda-matlab-@{package:version}/bin",
 				"31:modaclouds-components-monitoring-sda-weka" : "/opt/modaclouds-components-monitoring-sda-weka-@{package:version}/bin",
+				"31:modaclouds-components-load-balancer-controller" : "/opt/modaclouds-components-load-balancer-controller-@{package:version}/bin",
+				"31:modaclouds-components-load-balancer-reasoner" : "/opt/modaclouds-components-load-balancer-reasoner-@{package:version}/bin",
 				"31:modaclouds-components-metric-explorer" : "/opt/modaclouds-components-metric-explorer-@{package:version}/bin",
 				"31:modaclouds-components-metric-importer" : "/opt/modaclouds-components-metric-importer-@{package:version}/bin",
 				"51:bin" : "/bin",
@@ -120,6 +124,8 @@
 				"modaclouds-components-monitoring-dda" : "/opt/modaclouds-components-monitoring-dda-@{package:version}/lib/mosaic-platform-definitions",
 				"modaclouds-components-monitoring-sda-matlab" : "/opt/modaclouds-components-monitoring-sda-matlab-@{package:version}/lib/mosaic-platform-definitions",
 				"modaclouds-components-monitoring-sda-weka" : "/opt/modaclouds-components-monitoring-sda-weka-@{package:version}/lib/mosaic-platform-definitions",
+				"modaclouds-components-load-balancer-controller" : "/opt/modaclouds-components-load-balancer-controller-@{package:version}/lib/mosaic-platform-definitions",
+				"modaclouds-components-load-balancer-reasoner" : "/opt/modaclouds-components-load-balancer-reasoner-@{package:version}/lib/mosaic-platform-definitions",
 				"modaclouds-components-metric-explorer" : "/opt/modaclouds-components-metric-explorer-@{package:version}/lib/mosaic-platform-definitions",
 				"modaclouds-components-metric-importer" : "/opt/modaclouds-components-metric-importer-@{package:version}/lib/mosaic-platform-definitions"
 			}

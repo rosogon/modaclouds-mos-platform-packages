@@ -1,0 +1,75 @@
+{
+	"_schema" : "tag:ieat.ro,2014:mosaic:v2:mos-package-builder:descriptors:composite-package",
+	"_schema/version" : 1,
+	
+	"package" : {
+		"name" : "@{definitions:package:name}",
+		"version" : "@{definitions:package:version}",
+		"release" : "@{definitions:package:release}",
+		"architecture" : "i686",
+		"root" : "/opt/@{package:identifier}"
+	},
+	
+	"dependencies" : {
+		"requires" : [
+			"modaclouds-services-load-balancer-reasoner == @{package:version}",
+			"glibc-32bit"
+		]
+	},
+	
+	"miscellaneous" : {
+		"license" : "apache-2.0",
+		"url" : "http://www.modaclouds.eu/",
+		"summary" : "MODAClouds components: load-balancer reasoner"
+	},
+	
+	"overlays" : [
+		{
+			"generator" : "folders",
+			"target" : "@{package:root}",
+			"folders" : [
+				"/",
+				"/env",
+				"/env/paths",
+				"/env/variables"
+			]
+		},
+		{
+			"generator" : "unarchiver",
+			"target" : "@{package:root}",
+			"resource" : "modaclouds-components-load-balancer-reasoner.cpio.gz",
+			"format" : "cpio+gzip"
+		},
+		{
+			"generator" : "symlinks",
+			"target" : "@{package:root}/env/paths",
+			"links" : {
+				"51:bin" : "/bin",
+				"52:usr-bin" : "/usr/bin"
+			}
+		},
+		{
+			"generator" : "symlinks",
+			"target" : "@{package:root}/env/variables",
+			"links" : {
+				"@@a:modaclouds_load_balancer_reasoner_run" : "/opt/modaclouds-services-load-balancer-reasoner-@{package:version}/bin/modaclouds-services-load-balancer-reasoner--run-service"
+			}
+		}
+	],
+	
+	"resources" : {
+		"modaclouds-components-load-balancer-reasoner.cpio.gz" : {
+			"generator" : "fetcher",
+			"uri" : "@{definitions:resources:url:base}/modaclouds-components-load-balancer-reasoner--@{definitions:resources:url:suffix}.cpio.gz",
+			"cache" : "modaclouds-components-load-balancer-reasoner--@{definitions:resources:url:suffix}.cpio.gz"
+		}
+	},
+	
+	"definitions" : {
+		"package:name" : "modaclouds-components-load-balancer-reasoner",
+		"package:version" : "0.7.0_dev",
+		"package:release" : "@{execution:timestamp}",
+		"resources:url:base" : "http://data.volution.ro/ciprian/public/modaclouds/packages",
+		"resources:url:suffix" : "@{definitions:package:version}"
+	}
+}
