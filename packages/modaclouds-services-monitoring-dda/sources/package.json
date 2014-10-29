@@ -44,8 +44,8 @@
 		},
 		{
 			"generator" : "file-creator",
-			"target" : "@{package:root}/lib/csparql/csparql.jar",
-			"resource" : "csparql.jar",
+			"target" : "@{package:root}/lib/csparql/service.jar",
+			"resource" : "csparql-service.jar",
 			"executable" : false,
 			"expand" : false
 		},
@@ -55,13 +55,6 @@
 			"resource" : "service-run.bash",
 			"executable" : true,
 			"expand" : true
-		},
-		{
-			"generator" : "renames",
-			"target" : "@{package:root}/lib/csparql",
-			"renames" : {
-				"main.jar" : "csparql.jar"
-			}
 		}
 	],
 	
@@ -70,9 +63,9 @@
 			"generator" : "sources",
 			"path" : "service-run.bash"
 		},
-		"csparql.jar" : {
+		"csparql-service.jar" : {
 			"generator" : "fetcher",
-			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/rsp-services-csparql-@{definitions:versions:modaclouds:csparql}.jar"
+			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/service.jar"
 		}
 	},
 	
@@ -83,8 +76,9 @@
 		"package:release" : "@{execution:timestamp}",
 		
 		"versions:modaclouds:csparql" : "0.4.6.1",
-		"resources:modaclouds:url:base" : "http://data.volution.ro/ciprian/public/modaclouds",
-		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies",
+		
+		"resources:modaclouds:url:base" : "http://data.volution.ro/modaclouds/public",
+		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies/@{definitions:package:name}/@{definitions:versions:modaclouds:csparql}",
 		
 		"environment:CSPARQL_HOME" : "@{package:root}/lib/csparql",
 		"environment:CSPARQL_ENDPOINT_IP" : "0.0.0.0",

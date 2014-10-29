@@ -78,14 +78,14 @@
 		{
 			"generator" : "file-creator",
 			"target" : "@{package:root}/etc/sda-weka/dda.properties",
-			"resource" : "dda.properties",
+			"resource" : "sda-weka-dda.properties",
 			"executable" : false,
 			"expand" : true
 		},
 		{
 			"generator" : "file-creator",
 			"target" : "@{package:root}/etc/sda-weka/kb.properties",
-			"resource" : "kb.properties",
+			"resource" : "sda-weka-kb.properties",
 			"executable" : false,
 			"expand" : true
 		}
@@ -98,15 +98,15 @@
 		},
 		"sda-weka-distribution.tar.gz" : {
 			"generator" : "fetcher",
-			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/modaclouds-monitoring-sda-weka-@{definitions:versions:modaclouds:sda-weka}-distribution.tar.gz"
+			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/distribution.tar.gz"
 		},
-		"dda.properties" : {
+		"sda-weka-dda.properties" : {
 			"generator" : "sources",
-			"path" : "dda.properties"
+			"path" : "sda-weka-dda.properties"
 		},
-		"kb.properties" : {
+		"sda-weka-kb.properties" : {
 			"generator" : "sources",
-			"path" : "kb.properties"
+			"path" : "sda-weka-kb.properties"
 		}
 	},
 	
@@ -117,8 +117,9 @@
 		"package:release" : "@{execution:timestamp}",
 		
 		"versions:modaclouds:sda-weka" : "1.0.2",
-		"resources:modaclouds:url:base" : "http://data.volution.ro/ciprian/public/modaclouds",
-		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies",
+		
+		"resources:modaclouds:url:base" : "http://data.volution.ro/modaclouds/public",
+		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies/@{definitions:package:name}/@{definitions:versions:modaclouds:sda-weka}",
 		
 		"environment:SDA_WEKA_HOME" : "@{package:root}/lib/sda-weka",
 		"environment:SDA_WEKA_CONF" : "@{package:root}/etc/sda-weka",

@@ -43,13 +43,11 @@
 			}
 		},
 		{
-			"generator" : "unarchiver",
-			"target" : "@{package:root}/lib/manager",
-			"resource" : "manager-distribution.tar.gz",
-			"format" : "tar+gzip",
-			"options" : {
-				"strip-components" : 1
-			}
+			"generator" : "file-creator",
+			"target" : "@{package:root}/lib/manager/service.jar",
+			"resource" : "manager-service.jar",
+			"executable" : false,
+			"expand" : false
 		},
 		{
 			"generator" : "file-creator",
@@ -57,13 +55,6 @@
 			"resource" : "service-run.bash",
 			"executable" : true,
 			"expand" : true
-		},
-		{
-			"generator" : "renames",
-			"target" : "@{package:root}/lib/manager",
-			"renames" : {
-				"main.jar" : "./monitoring-manager-@{definitions:versions:modaclouds:manager}.jar"
-			}
 		}
 	],
 	
@@ -72,9 +63,9 @@
 			"generator" : "sources",
 			"path" : "service-run.bash"
 		},
-		"manager-distribution.tar.gz" : {
+		"manager-service.jar" : {
 			"generator" : "fetcher",
-			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/modaclouds-monitoring-manager-@{definitions:versions:modaclouds:manager}-distribution.tar.gz"
+			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/service.jar"
 		}
 	},
 	
@@ -85,8 +76,9 @@
 		"package:release" : "@{execution:timestamp}",
 		
 		"versions:modaclouds:manager" : "1.1.2",
-		"resources:modaclouds:url:base" : "http://data.volution.ro/ciprian/public/modaclouds",
-		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies",
+		
+		"resources:modaclouds:url:base" : "http://data.volution.ro/modaclouds/public",
+		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies/@{definitions:package:name}/@{definitions:versions:modaclouds:manager}",
 		
 		"environment:MANAGER_HOME" : "@{package:root}/lib/manager",
 		"environment:MANAGER_ENDPOINT_IP" : "0.0.0.0",

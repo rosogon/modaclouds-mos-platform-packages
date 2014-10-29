@@ -80,7 +80,7 @@
 		},
 		"fuseki-distribution.tar.gz" : {
 			"generator" : "fetcher",
-			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/jena-fuseki-@{definitions:versions:modaclouds:fuseki}-distribution.tar.gz"
+			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/distribution.tar.gz"
 		}
 	},
 	
@@ -91,8 +91,8 @@
 		"package:release" : "@{execution:timestamp}",
 		
 		"versions:modaclouds:fuseki" : "1.1.1",
-		"resources:modaclouds:url:base" : "http://data.volution.ro/ciprian/public/modaclouds",
-		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies",
+		"resources:modaclouds:url:base" : "http://data.volution.ro/modaclouds/public",
+		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies/@{definitions:package:name}/@{definitions:versions:modaclouds:fuseki}",
 		
 		"environment:FUSEKI_HOME" : "@{package:root}/lib/fuseki",
 		"environment:FUSEKI_CONF" : "@{package:root}/etc/fuseki",

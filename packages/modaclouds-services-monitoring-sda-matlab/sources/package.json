@@ -82,21 +82,21 @@
 		{
 			"generator" : "file-creator",
 			"target" : "@{package:root}/etc/sda-matlab/dda.properties",
-			"resource" : "dda.properties",
+			"resource" : "sda-matlab-dda.properties",
 			"executable" : false,
 			"expand" : true
 		},
 		{
 			"generator" : "file-creator",
 			"target" : "@{package:root}/etc/sda-matlab/kb.properties",
-			"resource" : "kb.properties",
+			"resource" : "sda-matlab-kb.properties",
 			"executable" : false,
 			"expand" : true
 		},
 		{
 			"generator" : "file-creator",
 			"target" : "@{package:root}/etc/sda-matlab/port.txt",
-			"resource" : "port.txt",
+			"resource" : "sda-matlab-port.txt",
 			"executable" : false,
 			"expand" : true
 		}
@@ -109,19 +109,19 @@
 		},
 		"sda-matlab-distribution.tar.gz" : {
 			"generator" : "fetcher",
-			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/modaclouds-monitoring-sda-matlab-@{definitions:versions:modaclouds:sda-matlab}-distribution.tar.gz"
+			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/distribution.tar.gz"
 		},
-		"dda.properties" : {
+		"sda-matlab-dda.properties" : {
 			"generator" : "sources",
-			"path" : "dda.properties"
+			"path" : "sda-matlab-dda.properties"
 		},
-		"kb.properties" : {
+		"sda-matlab-kb.properties" : {
 			"generator" : "sources",
-			"path" : "kb.properties"
+			"path" : "sda-matlab-kb.properties"
 		},
-		"port.txt" : {
+		"sda-matlab-port.txt" : {
 			"generator" : "sources",
-			"path" : "port.txt"
+			"path" : "sda-matlab-port.txt"
 		}
 	},
 	
@@ -132,8 +132,9 @@
 		"package:release" : "@{execution:timestamp}",
 		
 		"versions:modaclouds:sda-matlab" : "1.1",
-		"resources:modaclouds:url:base" : "http://data.volution.ro/ciprian/public/modaclouds",
-		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies",
+		
+		"resources:modaclouds:url:base" : "http://data.volution.ro/modaclouds/public",
+		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies/@{definitions:package:name}/@{definitions:versions:modaclouds:sda-matlab}",
 		
 		"environment:SDA_MATLAB_HOME" : "@{package:root}/lib/sda-matlab",
 		"environment:SDA_MATLAB_CONF" : "@{package:root}/etc/sda-matlab",

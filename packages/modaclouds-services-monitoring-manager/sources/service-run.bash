@@ -88,6 +88,6 @@ exec \
 	env \
 			-i "${_environment[@]}" \
 	"${_JAVA_HOME}/bin/java" \
-			-jar "${_MANAGER_HOME}/main.jar"
+			-jar "${_MANAGER_HOME}/service.jar"
 
 exit 1

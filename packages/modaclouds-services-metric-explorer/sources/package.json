@@ -60,10 +60,14 @@
 	},
 	
 	"definitions" : {
+		
 		"package:name" : "modaclouds-services-metric-explorer",
 		"package:version" : "0.7.0_dev",
 		"package:release" : "@{execution:timestamp}",
-		"resources:modaclouds:url:base" : "http://data.volution.ro/ciprian/public/modaclouds",
-		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies"
+		
+		"versions:modaclouds:metric-explorer" : "x.y.z",
+		
+		"resources:modaclouds:url:base" : "http://data.volution.ro/modaclouds/public",
+		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies/@{definitions:package:name}/@{definitions:versions:modaclouds:metric-explorer}"
 	}
 }

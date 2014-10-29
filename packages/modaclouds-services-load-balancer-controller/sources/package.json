@@ -28,11 +28,10 @@
 			"target" : "@{package:root}",
 			"folders" : [
 				"/",
-				"/etc",
 				"/bin",
 				"/lib",
-				"/etc/controller",
-				"/lib/controller",
+				"/lib/lb-controller",
+				"/lib/virtualenv",
 				"/lib/scripts"
 			]
 		},
@@ -41,6 +40,24 @@
 			"target" : "@{package:root}/bin",
 			"links" : {
 				"@{package:name}--run-service" : "../lib/scripts/run.bash"
+			}
+		},
+		{
+			"generator" : "unarchiver",
+			"target" : "@{package:root}/lib/lb-controller",
+			"resource" : "lb-controller-sources.tar.gz",
+			"format" : "tar+gzip",
+			"options" : {
+				"strip-components" : 1
+			}
+		},
+		{
+			"generator" : "unarchiver",
+			"target" : "@{package:root}/lib/virtualenv",
+			"resource" : "lb-controller-virtualenv.tar.gz",
+			"format" : "tar+gzip",
+			"options" : {
+				"strip-components" : 1
 			}
 		},
 		{
@@ -56,14 +73,39 @@
 		"service-run.bash" : {
 			"generator" : "sources",
 			"path" : "service-run.bash"
+		},
+		"lb-controller-sources.tar.gz" : {
+			"generator" : "fetcher",
+			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/sources.tar.gz"
+		},
+		"lb-controller-virtualenv.tar.gz" : {
+			"generator" : "fetcher",
+			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/virtualenv.tar.gz"
 		}
 	},
 	
 	"definitions" : {
+		
 		"package:name" : "modaclouds-services-load-balancer-controller",
 		"package:version" : "0.7.0_dev",
 		"package:release" : "@{execution:timestamp}",
-		"resources:modaclouds:url:base" : "http://data.volution.ro/ciprian/public/modaclouds",
-		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies"
+		
+		"versions:modaclouds:lb-controller" : "0.2.5",
+		"resources:modaclouds:url:base" : "http://data.volution.ro/modaclouds/public",
+		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies/@{definitions:package:name}/@{definitions:versions:modaclouds:lb-controller}",
+		
+		"environment:LB_CONTROLLER_HOME" : "@{package:root}/lib/lb-controller",
+		"environment:LB_CONTROLLER_CONF" : "@{package:root}/etc/lb-controller",
+		
+		"environment:LB_CONTROLLER_ENDPOINT_IP" : "0.0.0.0",
+		"environment:LB_CONTROLLER_ENDPOINT_PORT" : "8088",
+		
+		"environment:LB_GATEWAY_ENDPOINT_IP" : "0.0.0.0",
+		"environment:LB_GATEWAY_ENDPOINT_PORT_MIN" : "8000",
+		"environment:LB_GATEWAY_ENDPOINT_PORT_MAX" : "8080",
+		
+		"environment:VIRTUALENV_HOME" : "@{package:root}/lib/virtualenv",
+		"environment:PATH" : "@{definitions:environment:VIRTUALENV_HOME}/bin:/usr/bin:/bin",
+		"environment:TMPDIR" : "/tmp/@{package:identifier}"
 	}
 }

@@ -52,7 +52,7 @@ exec \
 	env \
 			-i "${_environment[@]}" \
 	"${_JAVA_HOME}/bin/java" \
-			-jar "${_CSPARQL_HOME}/main.jar" \
+			-jar "${_CSPARQL_HOME}/service.jar" \
 			"${_CSPARQL_ENDPOINT_PORT}"
 
 exit 1

@@ -37,7 +37,7 @@
 		{
 			"generator" : "unarchiver",
 			"target" : "@{package:root}",
-			"resource" : "modaclouds-components-metric-importer.cpio.gz",
+			"resource" : "package.cpio.gz",
 			"format" : "cpio+gzip"
 		},
 		{
@@ -58,18 +58,21 @@
 	],
 	
 	"resources" : {
-		"modaclouds-components-metric-importer.cpio.gz" : {
+		"package.cpio.gz" : {
 			"generator" : "fetcher",
-			"uri" : "@{definitions:resources:url:base}/modaclouds-components-metric-importer--@{definitions:resources:url:suffix}.cpio.gz",
-			"cache" : "modaclouds-components-metric-importer--@{definitions:resources:url:suffix}.cpio.gz"
+			"uri" : "@{definitions:resources:modaclouds:url:package}/package.cpio.gz",
+			"cache" : "@{definitions:package:name}--@{definitions:package:version}.cpio.gz"
 		}
 	},
 	
 	"definitions" : {
+		
 		"package:name" : "modaclouds-components-metric-importer",
 		"package:version" : "0.7.0_dev",
 		"package:release" : "@{execution:timestamp}",
-		"resources:url:base" : "http://data.volution.ro/ciprian/public/modaclouds/packages",
-		"resources:url:suffix" : "@{definitions:package:version}"
+		
+		"resources:modaclouds:url:base" : "http://data.volution.ro/modaclouds/public",
+		"resources:modaclouds:url:packages" : "@{definitions:resources:modaclouds:url:base}/packages",
+		"resources:modaclouds:url:package" : "@{definitions:resources:modaclouds:url:packages}/@{definitions:package:name}/@{definitions:package:version}"
 	}
 }
