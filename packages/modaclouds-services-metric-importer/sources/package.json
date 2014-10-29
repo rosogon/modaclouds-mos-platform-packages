@@ -11,9 +11,7 @@
 	},
 	
 	"dependencies" : {
-		"provides" : ["@{definitions:package:name}"],
-		"requires" : [
-		]
+		"requires" : []
 	},
 	
 	"miscellaneous" : {

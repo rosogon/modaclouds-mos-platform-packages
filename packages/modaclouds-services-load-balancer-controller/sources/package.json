@@ -11,8 +11,9 @@
 	},
 	
 	"dependencies" : {
-		"provides" : ["@{definitions:package:name}"],
 		"requires" : [
+			"python",
+			"haproxy"
 		]
 	},
 	
@@ -58,6 +59,13 @@
 			"format" : "tar+gzip",
 			"options" : {
 				"strip-components" : 1
+			}
+		},
+		{
+			"generator" : "symlinks",
+			"target" : "@{package:root}/lib/virtualenv/bin",
+			"links" : {
+				"haproxy" : "/usr/sbin/haproxy"
 			}
 		},
 		{

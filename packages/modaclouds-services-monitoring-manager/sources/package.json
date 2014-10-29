@@ -11,7 +11,6 @@
 	},
 	
 	"dependencies" : {
-		"provides" : ["@{definitions:package:name}"],
 		"requires" : [
 			"mosaic-rt-jre-7-32bit"
 		]

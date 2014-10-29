@@ -11,7 +11,6 @@
 	},
 	
 	"dependencies" : {
-		"provides" : ["@{definitions:package:name}"],
 		"requires" : [
 			"modaclouds-rt-matlab-mcr-r2013a",
 			"mosaic-rt-jre-7"
