@@ -33,7 +33,6 @@
 				"/lib",
 				"/etc/fuseki",
 				"/lib/fuseki",
-				"/var/fuseki",
 				"/lib/scripts"
 			]
 		},
