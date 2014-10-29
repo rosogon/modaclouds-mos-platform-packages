@@ -29,8 +29,8 @@
 				"/etc",
 				"/bin",
 				"/lib",
-				"/etc/explorer",
-				"/lib/explorer",
+				"/etc/graphite",
+				"/lib/graphite",
 				"/lib/scripts"
 			]
 		},
@@ -39,6 +39,50 @@
 			"target" : "@{package:root}/bin",
 			"links" : {
 				"@{package:name}--run-service" : "../lib/scripts/run.bash"
+			}
+		},
+		{
+			"generator" : "unarchiver",
+			"target" : "@{package:root}/lib/graphite",
+			"resource" : "graphite-distribution.cpio.gz",
+			"format" : "cpio+gzip"
+		},
+		{
+			"generator" : "renames",
+			"target" : "@{package:root}/lib/graphite",
+			"renames" : {
+				"/bin" : "/modaclouds-monitoring-metric-explorer/lib/graphite/bin",
+				"/lib" : "/modaclouds-monitoring-metric-explorer/lib/graphite/lib",
+				"/lib64" : "/modaclouds-monitoring-metric-explorer/lib/graphite/lib64",
+				"/webapp" : "/modaclouds-monitoring-metric-explorer/lib/graphite/webapp"
+			}
+		},
+		{
+			"generator" : "unlinks",
+			"target" : "@{package:root}/lib/graphite",
+			"unlinks" : [
+				"/modaclouds-monitoring-metric-explorer"
+			]
+		},
+		{
+			"generator" : "file-creator",
+			"target" : "@{package:root}/etc/graphite/carbon.conf",
+			"resource" : "graphite-carbon.conf",
+			"executable" : false,
+			"expand" : true
+		},
+		{
+			"generator" : "file-creator",
+			"target" : "@{package:root}/etc/graphite/storage-schemas.conf",
+			"resource" : "graphite-storage-schemas.conf",
+			"executable" : false,
+			"expand" : true
+		},
+		{
+			"generator" : "symlinks",
+			"target" : "@{package:root}/lib",
+			"links" : {
+				"/virtualenv" : "./graphite"
 			}
 		},
 		{
@@ -54,6 +98,18 @@
 		"service-run.bash" : {
 			"generator" : "sources",
 			"path" : "service-run.bash"
+		},
+		"graphite-distribution.cpio.gz" : {
+			"generator" : "fetcher",
+			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/distribution.cpio.gz"
+		},
+		"graphite-carbon.conf" : {
+			"generator" : "sources",
+			"path" : "graphite-carbon.conf"
+		},
+		"graphite-storage-schemas.conf" : {
+			"generator" : "sources",
+			"path" : "graphite-storage-schemas.conf"
 		}
 	},
 	
@@ -63,9 +119,24 @@
 		"package:version" : "0.7.0_dev",
 		"package:release" : "@{execution:timestamp}",
 		
-		"versions:modaclouds:metric-explorer" : "x.y.z",
+		"versions:modaclouds:metric-explorer" : "0.3",
 		
 		"resources:modaclouds:url:base" : "http://data.volution.ro/modaclouds/public",
-		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies/@{definitions:package:name}/@{definitions:versions:modaclouds:metric-explorer}"
+		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies/@{definitions:package:name}/@{definitions:versions:modaclouds:metric-explorer}",
+		
+		"environment:GRAPHITE_ROOT" : "@{package:root}/lib/graphite",
+		"environment:GRAPHITE_CONF_DIR" : "@{package:root}/etc/graphite",
+		"environment:GRAPHITE_STORAGE_DIR" : "@{package:root}/var/graphite",
+		
+		"environment:GRAPHITE_QUERY_ENDPOINT_IP" : "0.0.0.0",
+		"environment:GRAPHITE_QUERY_ENDPOINT_PORT" : "9010",
+		"environment:GRAPHITE_PICKLE_RECEIVER_ENDPOINT_IP" : "0.0.0.0",
+		"environment:GRAPHITE_PICKLE_RECEIVER_ENDPOINT_PORT" : "9011",
+		"environment:GRAPHITE_LINE_RECEIVER_ENDPOINT_IP" : "0.0.0.0",
+		"environment:GRAPHITE_LINE_RECEIVER_ENDPOINT_PORT" : "9012",
+		
+		"environment:VIRTUALENV_HOME" : "@{package:root}/lib/virtualenv",
+		"environment:PATH" : "@{definitions:environment:VIRTUALENV_HOME}/bin:/usr/bin:/bin",
+		"environment:TMPDIR" : "/tmp/@{package:identifier}"
 	}
 }
