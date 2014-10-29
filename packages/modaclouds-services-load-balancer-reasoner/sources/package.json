@@ -13,6 +13,8 @@
 	"dependencies" : {
 		"provides" : ["@{definitions:package:name}"],
 		"requires" : [
+			"modaclouds-rt-matlab-mcr-r2013a",
+			"mosaic-rt-jre-7"
 		]
 	},
 	
@@ -28,13 +30,20 @@
 			"target" : "@{package:root}",
 			"folders" : [
 				"/",
-				"/etc",
 				"/bin",
+				"/etc",
 				"/lib",
-				"/etc/reasoner",
-				"/lib/reasoner",
+				"/etc/lb-reasoner",
+				"/lib/lb-reasoner",
 				"/lib/scripts"
 			]
+		},
+		{
+			"generator" : "file-creator",
+			"target" : "@{package:root}/lib/scripts/run.bash",
+			"resource" : "service-run.bash",
+			"executable" : true,
+			"expand" : true
 		},
 		{
 			"generator" : "symlinks",
@@ -44,10 +53,26 @@
 			}
 		},
 		{
+			"generator" : "unarchiver",
+			"target" : "@{package:root}/lib/lb-reasoner",
+			"resource" : "lb-reasoner-distribution.tar.gz",
+			"format" : "tar+gzip",
+			"options" : {
+				"strip-components" : 1
+			}
+		},
+		{
+			"generator" : "unlinks",
+			"target" : "@{package:root}/lib/lb-reasoner",
+			"unlinks" : [
+				"/run_main.sh"
+			]
+		},
+		{
 			"generator" : "file-creator",
-			"target" : "@{package:root}/lib/scripts/run.bash",
-			"resource" : "service-run.bash",
-			"executable" : true,
+			"target" : "@{package:root}/etc/lb-reasoner/configuration_LB.xml",
+			"resource" : "lb-reasoner-configuration.xml",
+			"executable" : false,
 			"expand" : true
 		}
 	],
@@ -56,14 +81,40 @@
 		"service-run.bash" : {
 			"generator" : "sources",
 			"path" : "service-run.bash"
+		},
+		"lb-reasoner-distribution.tar.gz" : {
+			"generator" : "fetcher",
+			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/distribution.tar.gz"
+		},
+		"lb-reasoner-configuration.xml" : {
+			"generator" : "sources",
+			"path" : "lb-reasoner-configuration.xml"
 		}
 	},
 	
 	"definitions" : {
+		
 		"package:name" : "modaclouds-services-load-balancer-reasoner",
 		"package:version" : "0.7.0_dev",
 		"package:release" : "@{execution:timestamp}",
-		"resources:modaclouds:url:base" : "http://data.volution.ro/ciprian/public/modaclouds",
-		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies"
+		
+		"versions:modaclouds:lb-reasoner" : "1.0",
+		"resources:modaclouds:url:base" : "http://data.volution.ro/modaclouds/public",
+		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies/@{definitions:package:name}/@{definitions:versions:modaclouds:lb-reasoner}",
+		
+		"environment:LB_REASONER_HOME" : "@{package:root}/lib/lb-reasoner",
+		"environment:LB_REASONER_CONF" : "@{package:root}/etc/lb-reasoner",
+		
+		"environment:LB_CONTROLLER_ENDPOINT_IP" : "0.0.0.0",
+		"environment:LB_CONTROLLER_ENDPOINT_PORT" : "8088",
+		
+		"environment:LB_GATEWAY_ENDPOINT_IP" : "0.0.0.0",
+		"environment:LB_GATEWAY_ENDPOINT_PORT_MIN" : "8000",
+		"environment:LB_GATEWAY_ENDPOINT_PORT_MAX" : "8080",
+		
+		"environment:MCR_HOME" : "/opt/modaclouds-rt-matlab-mcr-r2013a/v81",
+		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7",
+		"environment:PATH" : "@{definitions:environment:JAVA_HOME}/bin:/usr/bin:/bin",
+		"environment:TMPDIR" : "/tmp/@{package:identifier}"
 	}
 }

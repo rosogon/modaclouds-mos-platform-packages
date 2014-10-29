@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<loadBalancer>
+	<path>/data/LBData.mat</path>
+	<haproxyIPGold>http://@@{MODACLOUDS_LOAD_BALANCER_GATEWAY_ENDPOINT_IP}:@@{MODACLOUDS_LOAD_BALANCER_GATEWAY_ENDPOINT_PORT_0}/</haproxyIPGold>
+	<frontendNameGold>backend_gold</frontendNameGold>
+	<haproxyIPSilver>http://@@{MODACLOUDS_LOAD_BALANCER_GATEWAY_ENDPOINT_IP}:@@{MODACLOUDS_LOAD_BALANCER_GATEWAY_ENDPOINT_PORT_1}/</haproxyIPSilver>
+	<frontendNameSilver>backend_silver</frontendNameSilver>
+	<revenue>1,1</revenue>
+	<algorithm>Heuristic</algorithm>
+	<period>60</period>
+</loadBalancer>
