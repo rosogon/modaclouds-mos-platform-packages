@@ -57,6 +57,8 @@ fi
 
 if test ! -e "${_GRAPHITE_STORAGE_DIR}" ; then
 	_GRAPHITE_STORAGE_DIR="${_TMPDIR}/var"
+fi
+if test ! -e "${_GRAPHITE_STORAGE_DIR}" ; then
 	mkdir -- "${_GRAPHITE_STORAGE_DIR}"
 fi
 

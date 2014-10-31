@@ -79,6 +79,13 @@
 			"expand" : true
 		},
 		{
+			"generator" : "file-creator",
+			"target" : "@{package:root}/etc/graphite/storage-aggregation.conf",
+			"resource" : "graphite-storage-aggregation.conf",
+			"executable" : false,
+			"expand" : true
+		},
+		{
 			"generator" : "symlinks",
 			"target" : "@{package:root}/lib",
 			"links" : {
@@ -110,6 +117,10 @@
 		"graphite-storage-schemas.conf" : {
 			"generator" : "sources",
 			"path" : "graphite-storage-schemas.conf"
+		},
+		"graphite-storage-aggregation.conf" : {
+			"generator" : "sources",
+			"path" : "graphite-storage-aggregation.conf"
 		}
 	},
 	

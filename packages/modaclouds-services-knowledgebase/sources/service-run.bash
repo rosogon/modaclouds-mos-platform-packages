@@ -49,6 +49,8 @@ fi
 
 if test ! -e "${_FUSEKI_VAR}" ; then
 	_FUSEKI_VAR="${_TMPDIR}/var"
+fi
+if test ! -e "${_FUSEKI_VAR}" ; then
 	mkdir -- "${_FUSEKI_VAR}"
 fi
 
