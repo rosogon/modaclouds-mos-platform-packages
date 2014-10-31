@@ -54,22 +54,6 @@ if test ! -e "${_FUSEKI_VAR}" ; then
 	mkdir -- "${_FUSEKI_VAR}"
 fi
 
-if test -d "${_TMPDIR}/etc" ; then
-	rm -R -- "${_TMPDIR}/etc"
-fi
-cp -R -p -T -- "${_FUSEKI_CONF}" "${_TMPDIR}/etc"
-
-find "${_TMPDIR}/etc" -xdev -type f \
-		-exec sed -r \
-				-e 's!@\{FUSEKI_HOME\}!'"${_FUSEKI_HOME}"'!g' \
-				-e 's!@\{FUSEKI_CONF\}!'"${_TMPDIR}/etc"'!g' \
-				-e 's!@\{FUSEKI_VAR\}!'"${_FUSEKI_VAR}"'!g' \
-				-e 's!@\{FUSEKI_TMPDIR\}!'"${_TMPDIR}/tmp"'!g' \
-				-e 's!@\{FUSEKI_ENDPOINT_IP\}!'"${_FUSEKI_ENDPOINT_IP}"'!g' \
-				-e 's!@\{FUSEKI_ENDPOINT_PORT\}!'"${_FUSEKI_ENDPOINT_PORT}"'!g' \
-				-e 's!@\{FUSEKI_DATASET_PATH\}!'"${_FUSEKI_DATASET_PATH}"'!g' \
-				-i -- {} \;
-
 if test -d "${_TMPDIR}/cwd" ; then
 	rm -R -- "${_TMPDIR}/cwd"
 fi
@@ -83,8 +67,10 @@ exec \
 	"${_JAVA_HOME}/bin/java" \
 			-jar "${_FUSEKI_HOME}/fuseki-server.jar" \
 			--home="${_FUSEKI_HOME}" \
-			--config="${_TMPDIR}/etc/configuration.ttl" \
 			--port="${_FUSEKI_ENDPOINT_PORT}" \
-			--update
+			--loc="${_FUSEKI_VAR}" \
+			--update \
+			-- \
+			"${_FUSEKI_DATASET_PATH}"
 
 exit 1
