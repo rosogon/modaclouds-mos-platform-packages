@@ -7,7 +7,6 @@ SECRET_KEY = os.environ['GRAPHITE_WEBAPP_KEY']
 ALLOWED_HOSTS = [ '*' ]
 TIME_ZONE = 'UTC'
 
-
 LOG_RENDERING_PERFORMANCE = True
 LOG_CACHE_PERFORMANCE = True
 LOG_METRIC_ACCESS = True
@@ -23,17 +22,17 @@ DASHBOARD_CONF = os.path.join (os.environ['GRAPHITE_WEBAPP_CONF_DIR'], "dashboar
 GRAPHTEMPLATES_CONF = os.path.join (os.environ['GRAPHITE_WEBAPP_CONF_DIR'], "graphtemplates.conf")
 
 WHISPER_DIR = os.path.join (STORAGE_DIR, 'whisper')
-DATA_DIRS = [WHISPER_DIR]
+DATA_DIRS = [ WHISPER_DIR ]
 LOG_DIR = os.path.join (STORAGE_DIR, 'log/webapp')
 INDEX_FILE = os.path.join (STORAGE_DIR, 'index')
 
 DATABASES = {
-	'default': {
-		'NAME': os.path.join (STORAGE_DIR, 'webapp.db'),
-		'ENGINE': 'django.db.backends.sqlite3',
-		'USER': '',
-		'PASSWORD': '',
-		'HOST': '',
-		'PORT': ''
+	'default' : {
+		'NAME' : os.path.join (STORAGE_DIR, 'webapp.db'),
+		'ENGINE' : 'django.db.backends.sqlite3',
+		'USER' : '',
+		'PASSWORD' : '',
+		'HOST' : '',
+		'PORT' : ''
 	}
 }
