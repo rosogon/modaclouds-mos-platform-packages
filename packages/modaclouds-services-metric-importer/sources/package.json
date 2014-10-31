@@ -11,7 +11,9 @@
 	},
 	
 	"dependencies" : {
-		"requires" : []
+		"requires" : [
+			"mosaic-rt-jre-7-32bit"
+		]
 	},
 	
 	"miscellaneous" : {
@@ -43,6 +45,13 @@
 		},
 		{
 			"generator" : "file-creator",
+			"target" : "@{package:root}/lib/importer/service.jar",
+			"resource" : "importer-service.jar",
+			"executable" : false,
+			"expand" : false
+		},
+		{
+			"generator" : "file-creator",
 			"target" : "@{package:root}/lib/scripts/run.bash",
 			"resource" : "service-run.bash",
 			"executable" : true,
@@ -54,6 +63,10 @@
 		"service-run.bash" : {
 			"generator" : "sources",
 			"path" : "service-run.bash"
+		},
+		"importer-service.jar" : {
+			"generator" : "fetcher",
+			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/service.jar"
 		}
 	},
 	
@@ -63,9 +76,20 @@
 		"package:version" : "0.7.0_dev",
 		"package:release" : "@{execution:timestamp}",
 		
-		"versions:modaclouds:metric-importer" : "x.y.z",
+		"versions:modaclouds:metric-importer" : "1.0",
 		
 		"resources:modaclouds:url:base" : "http://data.volution.ro/modaclouds/public",
-		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies/@{definitions:package:name}/@{definitions:versions:modaclouds:metric-importer}"
+		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies/@{definitions:package:name}/@{definitions:versions:modaclouds:metric-importer}",
+		
+		"environment:IMPORTER_HOME" : "@{package:root}/lib/importer",
+		"environment:IMPORTER_ENDPOINT_IP" : "0.0.0.0",
+		"environment:IMPORTER_ENDPOINT_PORT" : "9019",
+		
+		"environment:GRAPHITE_ENDPOINT_IP" : "0.0.0.0",
+		"environment:GRAPHITE_ENDPOINT_PORT" : "9013",
+		
+		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7-32bit",
+		"environment:PATH" : "@{definitions:environment:JAVA_HOME}/bin:/usr/bin:/bin",
+		"environment:TMPDIR" : "/tmp/@{package:identifier}"
 	}
 }
