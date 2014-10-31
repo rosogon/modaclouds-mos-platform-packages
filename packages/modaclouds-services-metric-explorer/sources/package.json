@@ -30,6 +30,8 @@
 				"/bin",
 				"/lib",
 				"/etc/graphite",
+				"/etc/graphite/carbon",
+				"/etc/graphite/webapp",
 				"/lib/graphite",
 				"/lib/scripts"
 			]
@@ -61,27 +63,58 @@
 			"generator" : "unlinks",
 			"target" : "@{package:root}/lib/graphite",
 			"unlinks" : [
-				"/modaclouds-monitoring-metric-explorer"
+				"/modaclouds-monitoring-metric-explorer",
+				"/webapp/graphite/graphite_wsgi.py",
+				"/webapp/graphite/local_settings.py",
+				"/webapp/graphite/local_settings.pyc"
 			]
 		},
 		{
 			"generator" : "file-creator",
-			"target" : "@{package:root}/etc/graphite/carbon.conf",
+			"target" : "@{package:root}/lib/graphite/webapp/graphite/graphite_wsgi.py",
+			"resource" : "graphite-webapp-wsgi.py",
+			"executable" : false,
+			"expand" : true
+		},
+		{
+			"generator" : "file-creator",
+			"target" : "@{package:root}/lib/graphite/webapp/graphite/local_settings.py",
+			"resource" : "graphite-webapp-settings.py",
+			"executable" : false,
+			"expand" : true
+		},
+		{
+			"generator" : "file-creator",
+			"target" : "@{package:root}/etc/graphite/carbon/carbon.conf",
 			"resource" : "graphite-carbon.conf",
 			"executable" : false,
 			"expand" : true
 		},
 		{
 			"generator" : "file-creator",
-			"target" : "@{package:root}/etc/graphite/storage-schemas.conf",
+			"target" : "@{package:root}/etc/graphite/carbon/storage-schemas.conf",
 			"resource" : "graphite-storage-schemas.conf",
 			"executable" : false,
 			"expand" : true
 		},
 		{
 			"generator" : "file-creator",
-			"target" : "@{package:root}/etc/graphite/storage-aggregation.conf",
+			"target" : "@{package:root}/etc/graphite/carbon/storage-aggregation.conf",
 			"resource" : "graphite-storage-aggregation.conf",
+			"executable" : false,
+			"expand" : true
+		},
+		{
+			"generator" : "file-creator",
+			"target" : "@{package:root}/etc/graphite/webapp/dashboard.conf",
+			"resource" : "graphite-webapp-dashboard.conf",
+			"executable" : false,
+			"expand" : true
+		},
+		{
+			"generator" : "file-creator",
+			"target" : "@{package:root}/etc/graphite/webapp/graphtemplates.conf",
+			"resource" : "graphite-webapp-graphtemplates.conf",
 			"executable" : false,
 			"expand" : true
 		},
@@ -121,6 +154,22 @@
 		"graphite-storage-aggregation.conf" : {
 			"generator" : "sources",
 			"path" : "graphite-storage-aggregation.conf"
+		},
+		"graphite-webapp-wsgi.py" : {
+			"generator" : "sources",
+			"path" : "graphite-webapp-wsgi.py"
+		},
+		"graphite-webapp-settings.py" : {
+			"generator" : "sources",
+			"path" : "graphite-webapp-settings.py"
+		},
+		"graphite-webapp-dashboard.conf" : {
+			"generator" : "sources",
+			"path" : "graphite-webapp-dashboard.conf"
+		},
+		"graphite-webapp-graphtemplates.conf" : {
+			"generator" : "sources",
+			"path" : "graphite-webapp-graphtemplates.conf"
 		}
 	},
 	
@@ -136,15 +185,21 @@
 		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies/@{definitions:package:name}/@{definitions:versions:modaclouds:metric-explorer}",
 		
 		"environment:GRAPHITE_ROOT" : "@{package:root}/lib/graphite",
-		"environment:GRAPHITE_CONF_DIR" : "@{package:root}/etc/graphite",
+		"environment:GRAPHITE_CONF_DIR" : "@{package:root}/etc/graphite/carbon",
 		"environment:GRAPHITE_STORAGE_DIR" : "@{package:root}/var/graphite",
 		
+		"environment:GRAPHITE_WEBAPP_ROOT" : "@{package:root}/lib/graphite/webapp",
+		"environment:GRAPHITE_WEBAPP_CONF_DIR" : "@{package:root}/etc/graphite/webapp",
+		"environment:GRAPHITE_WEBAPP_CONTENT_DIR" : "@{package:root}/etc/graphite/webapp/content",
+		
 		"environment:GRAPHITE_QUERY_ENDPOINT_IP" : "0.0.0.0",
-		"environment:GRAPHITE_QUERY_ENDPOINT_PORT" : "9010",
+		"environment:GRAPHITE_QUERY_ENDPOINT_PORT" : "9011",
 		"environment:GRAPHITE_PICKLE_RECEIVER_ENDPOINT_IP" : "0.0.0.0",
-		"environment:GRAPHITE_PICKLE_RECEIVER_ENDPOINT_PORT" : "9011",
+		"environment:GRAPHITE_PICKLE_RECEIVER_ENDPOINT_PORT" : "9012",
 		"environment:GRAPHITE_LINE_RECEIVER_ENDPOINT_IP" : "0.0.0.0",
-		"environment:GRAPHITE_LINE_RECEIVER_ENDPOINT_PORT" : "9012",
+		"environment:GRAPHITE_LINE_RECEIVER_ENDPOINT_PORT" : "9013",
+		"environment:GRAPHITE_DASHBOARD_ENDPOINT_IP" : "0.0.0.0",
+		"environment:GRAPHITE_DASHBOARD_ENDPOINT_PORT" : "9010",
 		
 		"environment:VIRTUALENV_HOME" : "@{package:root}/lib/virtualenv",
 		"environment:PATH" : "@{definitions:environment:VIRTUALENV_HOME}/bin:/usr/bin:/bin",
