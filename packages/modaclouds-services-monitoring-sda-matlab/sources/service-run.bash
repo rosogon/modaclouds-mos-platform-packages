@@ -18,6 +18,7 @@ _variable_defaults=(
 		_KNOWLEDGEBASE_ENDPOINT_IP='@{definitions:environment:KNOWLEDGEBASE_ENDPOINT_IP}'
 		_KNOWLEDGEBASE_ENDPOINT_PORT='@{definitions:environment:KNOWLEDGEBASE_ENDPOINT_PORT}'
 		_KNOWLEDGEBASE_DATASET_PATH='@{definitions:environment:KNOWLEDGEBASE_DATASET_PATH}'
+		_KNOWLEDGEBASE_SYNC_PERIOD='@{definitions:environment:KNOWLEDGEBASE_SYNC_PERIOD}'
 		
 		_MCR_HOME='@{definitions:environment:MCR_HOME}'
 		_JAVA_HOME='@{definitions:environment:JAVA_HOME}'
@@ -40,6 +41,10 @@ _variable_overrides=(
 		_KNOWLEDGEBASE_ENDPOINT_IP="${MODACLOUDS_KNOWLEDGEBASE_ENDPOINT_IP:-${_KNOWLEDGEBASE_ENDPOINT_IP}}"
 		_KNOWLEDGEBASE_ENDPOINT_PORT="${MODACLOUDS_KNOWLEDGEBASE_ENDPOINT_PORT:-${_KNOWLEDGEBASE_ENDPOINT_PORT}}"
 		_KNOWLEDGEBASE_DATASET_PATH="${MODACLOUDS_KNOWLEDGEBASE_DATASET_PATH:-${_KNOWLEDGEBASE_DATASET_PATH}}"
+		_KNOWLEDGEBASE_SYNC_PERIOD="${MODACLOUDS_KNOWLEDGEBASE_SYNC_PERIOD:-${_KNOWLEDGEBASE_SYNC_PERIOD}}"
+		
+		_DEPLOYMENT_APP_ID="${MODACLOUDS_DEPLOYMENT_APP_ID:-__none__}"
+		_DEPLOYMENT_VM_ID="${MODACLOUDS_DEPLOYMENT_VM_ID:-__none__}"
 		
 		_TMPDIR="${MODACLOUDS_MONITORING_SDA_MATLAB_TMPDIR:-${_TMPDIR}}"
 )
@@ -51,31 +56,6 @@ _environment=(
 		HOME="${_TMPDIR}/home"
 		USER='modaclouds-services'
 )
-
-if test ! -e "${_TMPDIR}" ; then
-	mkdir -- "${_TMPDIR}"
-	mkdir -- "${_TMPDIR}/tmp"
-	mkdir -- "${_TMPDIR}/home"
-fi
-
-if test -d "${_TMPDIR}/etc" ; then
-	rm -R -- "${_TMPDIR}/etc"
-fi
-cp -R -p -T -- "${_SDA_MATLAB_CONF}" "${_TMPDIR}/etc"
-
-find "${_TMPDIR}/etc" -xdev -type f \
-		-exec sed -r \
-				-e 's!@\{MODACLOUDS_MONITORING_SDA_MATLAB_HOME\}!'"${_SDA_MATLAB_HOME}"'!g' \
-				-e 's!@\{MODACLOUDS_MONITORING_SDA_MATLAB_CONF\}!'"${_TMPDIR}/etc"'!g' \
-				-e 's!@\{MODACLOUDS_MONITORING_SDA_MATLAB_TMPDIR\}!'"${_TMPDIR}/tmp"'!g' \
-				-e 's!@\{MODACLOUDS_MONITORING_SDA_MATLAB_ENDPOINT_IP\}!'"${_SDA_MATLAB_ENDPOINT_IP}"'!g' \
-				-e 's!@\{MODACLOUDS_MONITORING_SDA_MATLAB_ENDPOINT_PORT\}!'"${_SDA_MATLAB_ENDPOINT_PORT}"'!g' \
-				-e 's!@\{MODACLOUDS_MONITORING_DDA_ENDPOINT_IP\}!'"${_DDA_ENDPOINT_IP}"'!g' \
-				-e 's!@\{MODACLOUDS_MONITORING_DDA_ENDPOINT_PORT\}!'"${_DDA_ENDPOINT_PORT}"'!g' \
-				-e 's!@\{MODACLOUDS_KNOWLEDGEBASE_ENDPOINT_IP\}!'"${_KNOWLEDGEBASE_ENDPOINT_IP}"'!g' \
-				-e 's!@\{MODACLOUDS_KNOWLEDGEBASE_ENDPOINT_PORT\}!'"${_KNOWLEDGEBASE_ENDPOINT_PORT}"'!g' \
-				-e 's!@\{MODACLOUDS_KNOWLEDGEBASE_DATASET_PATH\}!'"${_KNOWLEDGEBASE_DATASET_PATH}"'!g' \
-				-i -- {} \;
 
 _LD_LIBRARY_PATHS=(
 		"${_MCR_HOME}/runtime/glnxa64"
@@ -102,23 +82,49 @@ _environment+=(
 		XAPPLRESDIR="${_XAPPLRESDIR}"
 )
 
+if test ! -e "${_TMPDIR}" ; then
+	mkdir -- "${_TMPDIR}"
+	mkdir -- "${_TMPDIR}/tmp"
+	mkdir -- "${_TMPDIR}/home"
+fi
+
+if test -d "${_TMPDIR}/etc" ; then
+	rm -R -- "${_TMPDIR}/etc"
+fi
+cp -R -p -T -- "${_SDA_MATLAB_CONF}" "${_TMPDIR}/etc"
+
+find "${_TMPDIR}/etc" -xdev -type f \
+		-exec sed -r \
+				-e 's!@\{MODACLOUDS_MONITORING_SDA_MATLAB_HOME\}!'"${_SDA_MATLAB_HOME}"'!g' \
+				-e 's!@\{MODACLOUDS_MONITORING_SDA_MATLAB_CONF\}!'"${_TMPDIR}/etc"'!g' \
+				-e 's!@\{MODACLOUDS_MONITORING_SDA_MATLAB_TMPDIR\}!'"${_TMPDIR}/tmp"'!g' \
+				-e 's!@\{MODACLOUDS_MONITORING_SDA_MATLAB_ENDPOINT_IP\}!'"${_SDA_MATLAB_ENDPOINT_IP}"'!g' \
+				-e 's!@\{MODACLOUDS_MONITORING_SDA_MATLAB_ENDPOINT_PORT\}!'"${_SDA_MATLAB_ENDPOINT_PORT}"'!g' \
+				-e 's!@\{MODACLOUDS_MONITORING_DDA_ENDPOINT_IP\}!'"${_DDA_ENDPOINT_IP}"'!g' \
+				-e 's!@\{MODACLOUDS_MONITORING_DDA_ENDPOINT_PORT\}!'"${_DDA_ENDPOINT_PORT}"'!g' \
+				-e 's!@\{MODACLOUDS_KNOWLEDGEBASE_ENDPOINT_IP\}!'"${_KNOWLEDGEBASE_ENDPOINT_IP}"'!g' \
+				-e 's!@\{MODACLOUDS_KNOWLEDGEBASE_ENDPOINT_PORT\}!'"${_KNOWLEDGEBASE_ENDPOINT_PORT}"'!g' \
+				-e 's!@\{MODACLOUDS_KNOWLEDGEBASE_DATASET_PATH\}!'"${_KNOWLEDGEBASE_DATASET_PATH}"'!g' \
+				-e 's!@\{MODACLOUDS_KNOWLEDGEBASE_SYNC_PERIOD\}!'"${_KNOWLEDGEBASE_SYNC_PERIOD}"'!g' \
+				-e 's!@\{MODACLOUDS_DEPLOYMENT_APP_ID\}!'"${_DEPLOYMENT_APP_ID}"'!g' \
+				-e 's!@\{MODACLOUDS_DEPLOYMENT_VM_ID\}!'"${_DEPLOYMENT_VM_ID}"'!g' \
+				-i -- {} \;
+
 if test -d "${_TMPDIR}/cwd" ; then
 	rm -R -- "${_TMPDIR}/cwd"
 fi
 mkdir -- "${_TMPDIR}/cwd"
 
 ln -s -T -- "${_SDA_MATLAB_HOME}/lib" "${_TMPDIR}/cwd/lib"
-ln -s -T -- "${_SDA_MATLAB_HOME}/mode.txt" "${_TMPDIR}/cwd/mode.txt"
-ln -s -T -- "${_SDA_MATLAB_HOME}/configuration_SDA.xml" "${_TMPDIR}/cwd/configuration_SDA.xml"
-ln -s -T -- "${_TMPDIR}/etc/dda.properties" "${_TMPDIR}/cwd/dda.properties"
-ln -s -T -- "${_TMPDIR}/etc/kb.properties" "${_TMPDIR}/cwd/kb.properties"
-ln -s -T -- "${_TMPDIR}/etc/port.txt" "${_TMPDIR}/cwd/port.txt"
+ln -s -T -- "${_TMPDIR}/etc/config.properties" "${_TMPDIR}/cwd/config.properties"
 
 cd -- "${_TMPDIR}/cwd"
 
 exec \
 	env -i \
 			"${_environment[@]}" \
-	"${_SDA_MATLAB_HOME}/main"
+	"${_SDA_MATLAB_HOME}/main" \
+			kb \
+			"${_SDA_MATLAB_ENDPOINT_PORT}"
 
 exit 1

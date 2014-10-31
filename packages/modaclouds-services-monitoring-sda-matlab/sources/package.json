@@ -64,38 +64,14 @@
 			"generator" : "unlinks",
 			"target" : "@{package:root}/lib/sda-matlab",
 			"unlinks" : [
-				"/lib/dda.properties",
-				"/lib/kb.properties",
-				"/port.txt",
+				"/config.properties",
 				"/run_main.sh"
 			]
 		},
 		{
-			"generator" : "symlinks",
-			"target" : "@{package:root}/lib/sda-matlab",
-			"links" : {
-				"/lib/dda.properties" : "/proc/self/cwd/dda.properties",
-				"/lib/kb.properties" : "/proc/self/cwd/kb.properties"
-			}
-		},
-		{
 			"generator" : "file-creator",
-			"target" : "@{package:root}/etc/sda-matlab/dda.properties",
-			"resource" : "sda-matlab-dda.properties",
-			"executable" : false,
-			"expand" : true
-		},
-		{
-			"generator" : "file-creator",
-			"target" : "@{package:root}/etc/sda-matlab/kb.properties",
-			"resource" : "sda-matlab-kb.properties",
-			"executable" : false,
-			"expand" : true
-		},
-		{
-			"generator" : "file-creator",
-			"target" : "@{package:root}/etc/sda-matlab/port.txt",
-			"resource" : "sda-matlab-port.txt",
+			"target" : "@{package:root}/etc/sda-matlab/config.properties",
+			"resource" : "sda-matlab-config.properties",
 			"executable" : false,
 			"expand" : true
 		}
@@ -110,17 +86,9 @@
 			"generator" : "fetcher",
 			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/distribution.tar.gz"
 		},
-		"sda-matlab-dda.properties" : {
+		"sda-matlab-config.properties" : {
 			"generator" : "sources",
-			"path" : "sda-matlab-dda.properties"
-		},
-		"sda-matlab-kb.properties" : {
-			"generator" : "sources",
-			"path" : "sda-matlab-kb.properties"
-		},
-		"sda-matlab-port.txt" : {
-			"generator" : "sources",
-			"path" : "sda-matlab-port.txt"
+			"path" : "sda-matlab-config.properties"
 		}
 	},
 	
@@ -130,7 +98,7 @@
 		"package:version" : "0.7.0_dev",
 		"package:release" : "@{execution:timestamp}",
 		
-		"versions:modaclouds:sda-matlab" : "1.1",
+		"versions:modaclouds:sda-matlab" : "1.2",
 		
 		"resources:modaclouds:url:base" : "http://data.volution.ro/modaclouds/public",
 		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies/@{definitions:package:name}/@{definitions:versions:modaclouds:sda-matlab}",
@@ -146,6 +114,7 @@
 		"environment:KNOWLEDGEBASE_ENDPOINT_IP" : "0.0.0.0",
 		"environment:KNOWLEDGEBASE_ENDPOINT_PORT" : "8081",
 		"environment:KNOWLEDGEBASE_DATASET_PATH" : "/modaclouds/kb",
+		"environment:KNOWLEDGEBASE_SYNC_PERIOD" : "6",
 		
 		"environment:MCR_HOME" : "/opt/modaclouds-rt-matlab-mcr-r2013a/v81",
 		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7",
