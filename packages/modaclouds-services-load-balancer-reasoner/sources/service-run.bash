@@ -8,6 +8,8 @@ if test "$( getent passwd -- mos-services | cut -f 3 -d : )" -ne "${UID}" ; then
 	exit 1
 fi
 
+umask 0027
+
 exec </dev/null >&2
 
 _variable_defaults=(
@@ -60,9 +62,11 @@ if test ! -e "${_TMPDIR}" ; then
 fi
 
 if test -d "${_TMPDIR}/etc" ; then
+	chmod -R u+w -- "${_TMPDIR}/etc"
 	rm -R -- "${_TMPDIR}/etc"
 fi
 cp -R -p -T -- "${_LB_REASONER_CONF}" "${_TMPDIR}/etc"
+chmod -R u+w -- "${_TMPDIR}/etc"
 
 find "${_TMPDIR}/etc" -xdev -type f \
 		-exec sed -r \
@@ -80,6 +84,8 @@ find "${_TMPDIR}/etc" -xdev -type f \
 				-e 's!@\{MODACLOUDS_LOAD_BALANCER_GATEWAY_ENDPOINT_PORT_2\}!'"$(( ${_LB_GATEWAY_ENDPOINT_PORT_MAX} + 2 ))"'!g' \
 				-e 's!@\{MODACLOUDS_LOAD_BALANCER_GATEWAY_ENDPOINT_PORT_3\}!'"$(( ${_LB_GATEWAY_ENDPOINT_PORT_MAX} + 3 ))"'!g' \
 				-i -- {} \;
+
+chmod -R u-w -- "${_TMPDIR}/etc"
 
 _LD_LIBRARY_PATHS=(
 		"${_MCR_HOME}/runtime/glnxa64"
@@ -107,6 +113,7 @@ _environment+=(
 )
 
 if test -d "${_TMPDIR}/cwd" ; then
+	chmod -R u+w -- "${_TMPDIR}/cwd"
 	rm -R -- "${_TMPDIR}/cwd"
 fi
 mkdir -- "${_TMPDIR}/cwd"

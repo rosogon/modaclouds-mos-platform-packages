@@ -8,6 +8,8 @@ if test "$( getent passwd -- mos-services | cut -f 3 -d : )" -ne "${UID}" ; then
 	exit 1
 fi
 
+umask 0027
+
 exec </dev/null >&2
 
 _variable_defaults=(
@@ -83,6 +85,7 @@ if test ! -e "${_GRAPHITE_STORAGE_DIR}" ; then
 fi
 
 if test -d "${_TMPDIR}/etc" ; then
+	chmod -R u+w -- "${_TMPDIR}/etc"
 	rm -R -- "${_TMPDIR}/etc"
 fi
 if test ! -e "${_TMPDIR}/etc" ; then
@@ -90,6 +93,7 @@ if test ! -e "${_TMPDIR}/etc" ; then
 fi
 cp -R -p -T -- "${_GRAPHITE_CONF_DIR}" "${_TMPDIR}/etc/carbon"
 cp -R -p -T -- "${_GRAPHITE_WEBAPP_CONF_DIR}" "${_TMPDIR}/etc/webapp"
+chmod -R u+w -- "${_TMPDIR}/etc"
 
 find "${_TMPDIR}/etc" -xdev -type f \
 		-exec sed -r \
@@ -109,6 +113,8 @@ find "${_TMPDIR}/etc" -xdev -type f \
 				-e 's!@\{GRAPHITE_DASHBOARD_ENDPOINT_PORT\}!'"${_GRAPHITE_DASHBOARD_ENDPOINT_PORT}"'!g' \
 				-i -- {} \;
 
+chmod -R u-w -- "${_TMPDIR}/etc"
+
 _GRAPHITE_WEBAPP_KEY="$( uuidgen -r )"
 
 _environment+=(
@@ -122,6 +128,7 @@ _environment+=(
 )
 
 if test -d "${_TMPDIR}/cwd" ; then
+	chmod -R u+w -- "${_TMPDIR}/cwd"
 	rm -R -- "${_TMPDIR}/cwd"
 fi
 mkdir -- "${_TMPDIR}/cwd"
@@ -176,7 +183,9 @@ exec \
 			--worker-tmp-dir "${_TMPDIR}/tmp" \
 			--workers 2 \
 			--bind "${_GRAPHITE_DASHBOARD_ENDPOINT_IP}:${_GRAPHITE_DASHBOARD_ENDPOINT_PORT}" \
-			--debug --log-file /dev/stderr \
+			--debug \
+			--log-level info \
+			--log-file - \
 			--env GRAPHITE_ROOT="${_GRAPHITE_ROOT}" \
 			--env GRAPHITE_CONF_DIR="${_TMPDIR}/etc" \
 			--env GRAPHITE_STORAGE_DIR="${_GRAPHITE_STORAGE_DIR}" \

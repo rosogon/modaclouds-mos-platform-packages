@@ -8,6 +8,8 @@ if test "$( getent passwd -- mos-services | cut -f 3 -d : )" -ne "${UID}" ; then
 	exit 1
 fi
 
+umask 0027
+
 exec </dev/null >&2
 
 _variable_defaults=(
@@ -55,6 +57,7 @@ if test ! -e "${_TMPDIR}" ; then
 fi
 
 if test -d "${_TMPDIR}/cwd" ; then
+	chmod -R u+w -- "${_TMPDIR}/cwd"
 	rm -R -- "${_TMPDIR}/cwd"
 fi
 mkdir -- "${_TMPDIR}/cwd"

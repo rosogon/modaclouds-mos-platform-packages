@@ -12,7 +12,8 @@
 	
 	"dependencies" : {
 		"requires" : [
-			"python"
+			"python",
+			"python-cairo"
 		]
 	},
 	
@@ -124,7 +125,8 @@
 			"generator" : "symlinks",
 			"target" : "@{package:root}/lib",
 			"links" : {
-				"/virtualenv" : "./graphite"
+				"/virtualenv" : "./graphite",
+				"/graphite/lib/python2.7/site-packages/cairo" : "/usr/lib64/python2.7/site-packages/cairo"
 			}
 		},
 		{
