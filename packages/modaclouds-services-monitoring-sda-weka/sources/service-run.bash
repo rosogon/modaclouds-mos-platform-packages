@@ -3,6 +3,11 @@
 set -e -E -u -o pipefail -o noclobber -o noglob +o braceexpand || exit 1
 trap 'printf "[ee] failed: %s\n" "${BASH_COMMAND}" >&2' ERR || exit 1
 
+if test "$( getent passwd -- mos-services | cut -f 3 -d : )" -ne "${UID}" ; then
+	exec sudo -u mos-services -g mos-services -E -n -- "${0}" "${@}"
+	exit 1
+fi
+
 exec </dev/null >&2
 
 _variable_defaults=(
@@ -93,12 +98,12 @@ printf '[ii]   * knowledgebase dataset: `%s`;\n' "${_KNOWLEDGEBASE_DATASET_PATH}
 printf '[ii]   * knowledgebase sync-period: `%s`;\n' "${_KNOWLEDGEBASE_SYNC_PERIOD}" >&2
 printf '[ii]   * environment:\n' >&2
 for _variable in "${_environment[@]}" ; do
-	printf '[ii]       * `%s`;' "${_variable}" >&2
+	printf '[ii]       * `%s`;\n' "${_variable}" >&2
 done
-printf '[ii]   * workding directory: `%s`\n' "${PWD}" >&2
+printf '[ii]   * workding directory: `%s`;\n' "${PWD}" >&2
 printf '[--]\n' >&2
 
-printf '[ii] starting monitoring SDA Weka...' >&2
+printf '[ii] starting monitoring SDA Weka...\n' >&2
 printf '[--]\n' >&2
 
 exec \

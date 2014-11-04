@@ -3,6 +3,11 @@
 set -e -E -u -o pipefail -o noclobber -o noglob +o braceexpand || exit 1
 trap 'printf "[ee] failed: %s\n" "${BASH_COMMAND}" >&2' ERR || exit 1
 
+if test "$( getent passwd -- mos-services | cut -f 3 -d : )" -ne "${UID}" ; then
+	exec sudo -u mos-services -g mos-services -E -n -- "${0}" "${@}"
+	exit 1
+fi
+
 exec </dev/null >&2
 
 _variable_defaults=(
@@ -131,12 +136,12 @@ printf '[ii]   * metric explorer pickle receiver endpoint: `http://%s:%s/`;\n' "
 printf '[ii]   * metric explorer line receiver endpoint: `http://%s:%s/`;\n' "${_GRAPHITE_LINE_RECEIVER_ENDPOINT_IP}" "${_GRAPHITE_LINE_RECEIVER_ENDPOINT_PORT}" >&2
 printf '[ii]   * environment:\n' >&2
 for _variable in "${_environment[@]}" ; do
-	printf '[ii]       * `%s`;' "${_variable}" >&2
+	printf '[ii]       * `%s`;\n' "${_variable}" >&2
 done
-printf '[ii]   * workding directory: `%s`\n' "${PWD}" >&2
+printf '[ii]   * workding directory: `%s`;\n' "${PWD}" >&2
 printf '[--]\n' >&2
 
-printf '[ii] initializing database...' >&2
+printf '[ii] initializing database...\n' >&2
 printf '[--]\n' >&2
 
 env \
@@ -155,7 +160,7 @@ env \
 
 sleep 12s
 
-printf '[ii] starting metric explorer dashboard (Graphite)...' >&2
+printf '[ii] starting metric explorer dashboard (Graphite)...\n' >&2
 printf '[--]\n' >&2
 
 exec \
@@ -186,7 +191,7 @@ exit 1
 
 ) &
 
-printf '[ii] starting metric explorer database (Carbon)...' >&2
+printf '[ii] starting metric explorer database (Carbon)...\n' >&2
 printf '[--]\n' >&2
 
 exec \
