@@ -84,6 +84,23 @@ mkdir -- "${_TMPDIR}/cwd"
 
 cd -- "${_TMPDIR}/cwd"
 
+printf '[--]\n' >&2
+printf '[ii] parameters:\n' >&2
+printf '[ii]   * monitoring SDA Weka endpoint: `http://%s:%s/`;\n' "${_SDA_WEKA_ENDPOINT_IP}" "${_SDA_WEKA_ENDPOINT_PORT}" >&2
+printf '[ii]   * monitoring DDA endpoint: `http://%s:%s/`;\n' "${_DDA_ENDPOINT_IP}" "${_DDA_ENDPOINT_PORT}" >&2
+printf '[ii]   * knowledgebase endpoint: `http://%s:%s/`;\n' "${_KNOWLEDGEBASE_ENDPOINT_IP}" "${_KNOWLEDGEBASE_ENDPOINT_PORT}" >&2
+printf '[ii]   * knowledgebase dataset: `%s`;\n' "${_KNOWLEDGEBASE_DATASET_PATH}" >&2
+printf '[ii]   * knowledgebase sync-period: `%s`;\n' "${_KNOWLEDGEBASE_SYNC_PERIOD}" >&2
+printf '[ii]   * environment:\n' >&2
+for _variable in "${_environment[@]}" ; do
+	printf '[ii]       * `%s`;' "${_variable}" >&2
+done
+printf '[ii]   * workding directory: `%s`\n' "${PWD}" >&2
+printf '[--]\n' >&2
+
+printf '[ii] starting monitoring SDA Weka...' >&2
+printf '[--]\n' >&2
+
 exec \
 	env -i \
 			"${_environment[@]}" \

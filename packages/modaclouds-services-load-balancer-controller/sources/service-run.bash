@@ -56,6 +56,20 @@ mkdir -- "${_TMPDIR}/cwd"
 
 cd -- "${_TMPDIR}/cwd"
 
+printf '[--]\n' >&2
+printf '[ii] parameters:\n' >&2
+printf '[ii]   * load-balancer controller endpoint: `http://%s:%s/`;\n' "${_LB_CONTROLLER_ENDPOINT_IP}" "${_LB_CONTROLLER_ENDPOINT_PORT}" >&2
+printf '[ii]   * load-balancer gateway endpoint: `tcp:%s:(%s-%s)`;\n' "${_LB_GATEWAY_ENDPOINT_IP}" "${_LB_GATEWAY_ENDPOINT_PORT_MIN}" "${_LB_GATEWAY_ENDPOINT_PORT_MAX}" >&2
+printf '[ii]   * environment:\n' >&2
+for _variable in "${_environment[@]}" ; do
+	printf '[ii]       * `%s`;' "${_variable}" >&2
+done
+printf '[ii]   * workding directory: `%s`\n' "${PWD}" >&2
+printf '[--]\n' >&2
+
+printf '[ii] starting load-balancer controller...' >&2
+printf '[--]\n' >&2
+
 exec \
 	env -i \
 			"${_environment[@]}" \

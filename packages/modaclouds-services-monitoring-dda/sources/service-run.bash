@@ -48,6 +48,19 @@ mkdir -- "${_TMPDIR}/cwd"
 
 cd -- "${_TMPDIR}/cwd"
 
+printf '[--]\n' >&2
+printf '[ii] parameters:\n' >&2
+printf '[ii]   * monitoring DDA endpoint: `http://%s:%s/`;\n' "${_CSPARQL_ENDPOINT_IP}" "${_CSPARQL_ENDPOINT_PORT}" >&2
+printf '[ii]   * environment:\n' >&2
+for _variable in "${_environment[@]}" ; do
+	printf '[ii]       * `%s`;' "${_variable}" >&2
+done
+printf '[ii]   * workding directory: `%s`\n' "${PWD}" >&2
+printf '[--]\n' >&2
+
+printf '[ii] starting monitoring DDA (CSPARQL)...' >&2
+printf '[--]\n' >&2
+
 exec \
 	env \
 			-i "${_environment[@]}" \

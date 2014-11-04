@@ -123,6 +123,22 @@ mkdir -- "${_TMPDIR}/cwd"
 
 cd -- "${_TMPDIR}/cwd"
 
+printf '[--]\n' >&2
+printf '[ii] parameters:\n' >&2
+printf '[ii]   * metric explorer dashboard endpoint: `http://%s:%s/`;\n' "${_GRAPHITE_DASHBOARD_ENDPOINT_IP}" "${_GRAPHITE_DASHBOARD_ENDPOINT_PORT}" >&2
+printf '[ii]   * metric explorer query endpoint: `http://%s:%s/`;\n' "${_GRAPHITE_QUERY_ENDPOINT_IP}" "${_GRAPHITE_QUERY_ENDPOINT_PORT}" >&2
+printf '[ii]   * metric explorer pickle receiver endpoint: `http://%s:%s/`;\n' "${_GRAPHITE_PICKLE_RECEIVER_ENDPOINT_IP}" "${_GRAPHITE_PICKLE_RECEIVER_ENDPOINT_PORT}" >&2
+printf '[ii]   * metric explorer line receiver endpoint: `http://%s:%s/`;\n' "${_GRAPHITE_LINE_RECEIVER_ENDPOINT_IP}" "${_GRAPHITE_LINE_RECEIVER_ENDPOINT_PORT}" >&2
+printf '[ii]   * environment:\n' >&2
+for _variable in "${_environment[@]}" ; do
+	printf '[ii]       * `%s`;' "${_variable}" >&2
+done
+printf '[ii]   * workding directory: `%s`\n' "${PWD}" >&2
+printf '[--]\n' >&2
+
+printf '[ii] initializing database...' >&2
+printf '[--]\n' >&2
+
 env \
 	env -i \
 			"${_environment[@]}" \
@@ -135,7 +151,14 @@ env \
 			syncdb \
 			--noinput
 
-env \
+(
+
+sleep 12s
+
+printf '[ii] starting metric explorer dashboard (Graphite)...' >&2
+printf '[--]\n' >&2
+
+exec \
 	env -i \
 			"${_environment[@]}" \
 	"${_VIRTUALENV_HOME}/bin/python" \
@@ -157,8 +180,14 @@ env \
 			--env GRAPHITE_WEBAPP_CONTENT_DIR="${_GRAPHITE_WEBAPP_CONTENT_DIR}" \
 			--env GRAPHITE_WEBAPP_KEY="${_GRAPHITE_WEBAPP_KEY}" \
 			-- \
-			graphite_wsgi:application \
-&
+			graphite_wsgi:application
+
+exit 1
+
+) &
+
+printf '[ii] starting metric explorer database (Carbon)...' >&2
+printf '[--]\n' >&2
 
 exec \
 	env -i \

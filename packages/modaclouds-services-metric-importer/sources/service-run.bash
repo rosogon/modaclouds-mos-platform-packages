@@ -54,6 +54,20 @@ mkdir -- "${_TMPDIR}/cwd"
 
 cd -- "${_TMPDIR}/cwd"
 
+printf '[--]\n' >&2
+printf '[ii] parameters:\n' >&2
+printf '[ii]   * metric importer endpoint: `http://%s:%s/`;\n' "${_IMPORTER_ENDPOINT_IP}" "${_IMPORTER_ENDPOINT_PORT}" >&2
+printf '[ii]   * metric explorer line receiver endpoint: `http://%s:%s/`;\n' "${_GRAPHITE_ENDPOINT_IP}" "${_GRAPHITE_ENDPOINT_PORT}" >&2
+printf '[ii]   * environment:\n' >&2
+for _variable in "${_environment[@]}" ; do
+	printf '[ii]       * `%s`;' "${_variable}" >&2
+done
+printf '[ii]   * workding directory: `%s`\n' "${PWD}" >&2
+printf '[--]\n' >&2
+
+printf '[ii] starting metric importer...' >&2
+printf '[--]\n' >&2
+
 exec \
 	env -i \
 			"${_environment[@]}" \
