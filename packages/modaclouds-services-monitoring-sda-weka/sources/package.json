@@ -19,7 +19,7 @@
 	"miscellaneous" : {
 		"license" : "apache-2.0",
 		"url" : "http://www.modaclouds.eu/",
-		"summary" : "MODAClouds services: monitoring SDA Weka"
+		"summary" : "MODAClouds services: monitoring SDA Weka (@{definitions:versions:modaclouds:sda-weka})"
 	},
 	
 	"overlays" : [

@@ -19,7 +19,7 @@
 	"miscellaneous" : {
 		"license" : "apache-2.0",
 		"url" : "http://www.modaclouds.eu/",
-		"summary" : "MODAClouds services: monitoring DDA"
+		"summary" : "MODAClouds services: monitoring DDA (@{definitions:versions:modaclouds:csparql})"
 	},
 	
 	"overlays" : [

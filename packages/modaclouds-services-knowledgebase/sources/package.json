@@ -19,7 +19,7 @@
 	"miscellaneous" : {
 		"license" : "apache-2.0",
 		"url" : "http://www.modaclouds.eu/",
-		"summary" : "MODAClouds services: knowledgebase"
+		"summary" : "MODAClouds services: knowledgebase (@{definitions:versions:modaclouds:fuseki})"
 	},
 	
 	"overlays" : [
@@ -77,6 +77,7 @@
 		"package:release" : "@{execution:timestamp}",
 		
 		"versions:modaclouds:fuseki" : "1.1.1",
+		
 		"resources:modaclouds:url:base" : "http://data.volution.ro/modaclouds/public",
 		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies/@{definitions:package:name}/@{definitions:versions:modaclouds:fuseki}",
 		

@@ -20,7 +20,7 @@
 	"miscellaneous" : {
 		"license" : "apache-2.0",
 		"url" : "http://www.modaclouds.eu/",
-		"summary" : "MODAClouds services: metric explorer"
+		"summary" : "MODAClouds services: metric explorer (@{definitions:versions:modaclouds:metric-explorer})"
 	},
 	
 	"overlays" : [

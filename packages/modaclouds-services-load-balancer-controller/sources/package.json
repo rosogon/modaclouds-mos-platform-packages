@@ -20,7 +20,7 @@
 	"miscellaneous" : {
 		"license" : "apache-2.0",
 		"url" : "http://www.modaclouds.eu/",
-		"summary" : "MODAClouds services: load-balancer controller"
+		"summary" : "MODAClouds services: load-balancer controller (@{definitions:versions:modaclouds:lb-controller})"
 	},
 	
 	"overlays" : [
@@ -99,6 +99,7 @@
 		"package:release" : "@{execution:timestamp}",
 		
 		"versions:modaclouds:lb-controller" : "0.2.5",
+		
 		"resources:modaclouds:url:base" : "http://data.volution.ro/modaclouds/public",
 		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies/@{definitions:package:name}/@{definitions:versions:modaclouds:lb-controller}",
 		

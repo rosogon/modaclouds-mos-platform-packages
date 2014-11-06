@@ -19,7 +19,7 @@
 	"miscellaneous" : {
 		"license" : "apache-2.0",
 		"url" : "http://www.modaclouds.eu/",
-		"summary" : "MODAClouds services: metric importer"
+		"summary" : "MODAClouds services: metric importer (@{definitions:versions:modaclouds:metric-importer})"
 	},
 	
 	"overlays" : [

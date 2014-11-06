@@ -19,7 +19,7 @@
 	"miscellaneous" : {
 		"license" : "apache-2.0",
 		"url" : "http://www.modaclouds.eu/",
-		"summary" : "MODAClouds services: monitoring manager"
+		"summary" : "MODAClouds services: monitoring manager (@{definitions:versions:modaclouds:manager})"
 	},
 	
 	"overlays" : [

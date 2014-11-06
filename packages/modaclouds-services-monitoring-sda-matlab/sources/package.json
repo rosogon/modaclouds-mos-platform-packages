@@ -20,7 +20,7 @@
 	"miscellaneous" : {
 		"license" : "apache-2.0",
 		"url" : "http://www.modaclouds.eu/",
-		"summary" : "MODAClouds services: monitoring SDA Matlab"
+		"summary" : "MODAClouds services: monitoring SDA Matlab (@{definitions:versions:modaclouds:sda-matlab})"
 	},
 	
 	"overlays" : [
