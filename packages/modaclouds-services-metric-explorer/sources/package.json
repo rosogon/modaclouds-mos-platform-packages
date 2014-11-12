@@ -63,6 +63,11 @@
 			}
 		},
 		{
+			"generator" : "patcher",
+			"target" : "@{package:root}/lib/graphite/webapp/graphite/templates",
+			"resource" : "graphite-webapp-templates.patch"
+		},
+		{
 			"generator" : "unlinks",
 			"target" : "@{package:root}/lib/graphite",
 			"unlinks" : [
@@ -174,6 +179,10 @@
 		"graphite-webapp-graphtemplates.conf" : {
 			"generator" : "sources",
 			"path" : "graphite-webapp-graphtemplates.conf"
+		},
+		"graphite-webapp-templates.patch" : {
+			"generator" : "sources",
+			"path" : "graphite-webapp-templates.patch"
 		}
 	},
 	

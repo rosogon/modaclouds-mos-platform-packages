@@ -1,0 +1,56 @@
+diff -u -r 1/browser.html 2/browser.html
+--- 1/browser.html	2014-11-12 15:56:34.000000000 +0000
++++ 2/browser.html	2014-11-12 12:54:54.000000000 +0000
+@@ -16,7 +16,7 @@
+ 
+ <html>
+   <head>
+-    <title>Graphite Browser</title>
++    <title>MODAClouds metric explorer</title>
+   </head>
+         
+ 
+diff -u -r 1/browserHeader.html 2/browserHeader.html
+--- 1/browserHeader.html	2014-11-12 18:30:04.000000000 +0000
++++ 2/browserHeader.html	2014-11-12 12:54:54.000000000 +0000
+@@ -14,7 +14,7 @@
+ <html>
+   <head>
+     <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+-    <title>Graphite Browser Header</title>
++    <title>MODAClouds metric explorer</title>
+     <style>
+       body {
+         background-color: #000;
+@@ -60,7 +60,7 @@
+   </head>
+   <body>
+     <div class="header">
+-      <span class="title">Graphite</span>
++      <span class="title">MODAClouds metric explorer</span>
+       <div class="nav">
+         <ul>
+         {% if user.is_authenticated %}
+diff -u -r 1/composer.html 2/composer.html
+--- 1/composer.html	2014-11-12 15:58:11.000000000 +0000
++++ 2/composer.html	2014-11-12 12:54:54.000000000 +0000
+@@ -16,7 +16,7 @@
+ 
+ <html>
+   <head>
+-    <title>Graphite Composer</title>
++    <title>MODAClouds metric explorer</title>
+     <link rel="stylesheet" type="text/css" href="/content/js/ext/resources/css/ext-all.css"/>
+ 
+     {% if jsdebug %}
+diff -u -r 1/dashboard.html 2/dashboard.html
+--- 1/dashboard.html	2014-11-12 15:57:18.000000000 +0000
++++ 2/dashboard.html	2014-11-12 12:54:54.000000000 +0000
+@@ -1,6 +1,6 @@
+ <html>
+   <head>
+-    <title>Graphite Dashboard</title>
++    <title>MODAClouds metric explorer</title>
+     <link rel="stylesheet" type="text/css" href="/content/js/ext/resources/css/ext-all.css"/>
+     <link rel="stylesheet" type="text/css" href="/content/css/dashboard.css"/>
+ 
