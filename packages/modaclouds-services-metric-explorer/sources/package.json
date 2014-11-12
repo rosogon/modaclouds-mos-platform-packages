@@ -194,7 +194,7 @@
 		
 		"environment:GRAPHITE_WEBAPP_ROOT" : "@{package:root}/lib/graphite/webapp",
 		"environment:GRAPHITE_WEBAPP_CONF_DIR" : "@{package:root}/etc/graphite/webapp",
-		"environment:GRAPHITE_WEBAPP_CONTENT_DIR" : "@{package:root}/etc/graphite/webapp/content",
+		"environment:GRAPHITE_WEBAPP_CONTENT_DIR" : "@{package:root}/lib/graphite/webapp/content",
 		
 		"environment:GRAPHITE_QUERY_ENDPOINT_IP" : "0.0.0.0",
 		"environment:GRAPHITE_QUERY_ENDPOINT_PORT" : "9011",
