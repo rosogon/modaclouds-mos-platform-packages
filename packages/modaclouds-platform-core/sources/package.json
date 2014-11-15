@@ -117,7 +117,6 @@
 				"mosaic-components-riak-kv" : "/opt/mosaic-components-riak-kv-@{package:version}/lib/mosaic-platform-definitions",
 				"mosaic-components-mysql" : "/opt/mosaic-components-mysql-@{package:version}/lib/mosaic-platform-definitions",
 				"mosaic-components-me2cp" : "/opt/mosaic-components-me2cp-@{package:version}/lib/mosaic-platform-definitions",
-				"mosaic-components-httpg" : "/opt/mosaic-components-httpg-@{package:version}/lib/mosaic-platform-definitions",
 				"mosaic-object-store" : "/opt/mosaic-object-store-@{package:version}/lib/mosaic-platform-definitions",
 				"modaclouds-components-knowledgebase" : "/opt/modaclouds-components-knowledgebase-@{package:version}/lib/mosaic-platform-definitions",
 				"modaclouds-components-monitoring-manager" : "/opt/modaclouds-components-monitoring-manager-@{package:version}/lib/mosaic-platform-definitions",
