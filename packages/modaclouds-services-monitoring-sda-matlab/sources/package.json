@@ -119,6 +119,6 @@
 		"environment:MCR_HOME" : "/opt/modaclouds-rt-matlab-mcr-r2013a/v81",
 		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7",
 		"environment:PATH" : "@{definitions:environment:JAVA_HOME}/bin:/usr/bin:/bin",
-		"environment:TMPDIR" : "/tmp/@{package:identifier}"
+		"environment:TMPDIR" : "/tmp/modaclouds/@{package:identifier}"
 	}
 }

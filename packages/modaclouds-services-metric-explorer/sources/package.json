@@ -216,6 +216,6 @@
 		
 		"environment:VIRTUALENV_HOME" : "@{package:root}/lib/virtualenv",
 		"environment:PATH" : "@{definitions:environment:VIRTUALENV_HOME}/bin:/usr/bin:/bin",
-		"environment:TMPDIR" : "/tmp/@{package:identifier}"
+		"environment:TMPDIR" : "/tmp/modaclouds/@{package:identifier}"
 	}
 }
