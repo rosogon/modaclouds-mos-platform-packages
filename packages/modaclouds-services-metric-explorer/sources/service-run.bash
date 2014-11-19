@@ -208,7 +208,7 @@ exec \
 	"${_VIRTUALENV_HOME}/bin/gunicorn" \
 			--chdir "${_GRAPHITE_WEBAPP_ROOT}/graphite" \
 			--worker-tmp-dir "${_TMPDIR}/tmp" \
-			--workers 2 \
+			--workers 1 \
 			--bind "${_GRAPHITE_DASHBOARD_ENDPOINT_IP}:${_GRAPHITE_DASHBOARD_ENDPOINT_PORT}" \
 			--debug \
 			--log-level info \
