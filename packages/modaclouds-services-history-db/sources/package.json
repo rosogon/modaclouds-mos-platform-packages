@@ -13,8 +13,6 @@
 	"dependencies" : {
 		"provides" : ["@{definitions:package:name}"],
 		"requires" : [
-			"mosaic-components-rabbitmq",
-			"mosaic-object-store",
 			"mosaic-rt-jre-7"
 		]
 	},
@@ -52,12 +50,12 @@
 	},
 
 	"definitions" : {
-		"package:name" : "modaclouds-history-db",
+		"package:name" : "modaclouds-services-history-db",
 		"package:version" : "0.1.4",
 		"package:release" : "@{execution:timestamp}",
 		"resources:packagename" : "historydb",
 		"resources:repository:url:base" : "https://github.com/deib-polimi/modaclouds-history-db",
-		"resources:repository:url:releases" : "https://raw.githubusercontent.com/deib-polimi/modaclouds-history-db/master/bin/",
+		"resources:repository:url:releases" : "https://raw.githubusercontent.com/deib-polimi/modaclouds-history-db/master/bin",
 		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7"
 	}
 }
