@@ -36,7 +36,7 @@ distribution.tar.gz
 
 The previous Maven POM will create an archive ending with ``tar.gz`` which should contain a single top folder named ``distribution``, and inside it a file ``service.jar``.  However for other languages, one can easily create a similar archive with other methods.
 
-It should then be uploaded on the MODAClouds FTP, and then referenced with the url ``http://ftp.modaclouds.eu/...``.
+It should then be uploaded on the MODAClouds FTP, and then referenced with the url ``http://ftp.modaclouds.eu/public/...``.
 
 
 service-run.bash
@@ -94,10 +94,6 @@ To create the RPM, one only needs to execute the following: ::
 
 The ``mos-package-builder.py`` script is found in the repository `<https://github.com/cipriancraciun/mosaic-mos-package-builder>`_, inside the ``sources`` sub-folder.
 
-To install the RPM, one only needs to execute the following: ::
-
-    zypper install /tmp/service-x.rpm
-
 The present package descriptor makes the following assumptions:
 
   * the contents of the ``distribution.tar.gz`` will be extracted inside the ``/opt/modaclouds-service-x/lib/distribution`` folder, which will also be expanded into the ``service-run.bash`` script as ``@{definitions:environment:SERVICE_X_DISTRIBUTION}``;
@@ -107,6 +103,15 @@ The present package descriptor makes the following assumptions:
 
 Regarding the dependencies, inside the ``requires`` field one should not list those services to which the current one needs to connect to or use, but only those packages which provide actual run-time support for the service such as the Java JRE, or library, etc.
 
+
+Testing
+#######
+
+To install the RPM, one only needs to execute the following: ::
+
+    zypper install /tmp/service-x.rpm
+
+To execute the service one should follow the same steps as described in the section about testing the ``service-run.bash`` script.
 
 
 Links
