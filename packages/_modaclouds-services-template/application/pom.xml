@@ -1,0 +1,66 @@
+<project>
+	
+	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>eu.modaclouds.examples</groupId>
+	<artifactId>modaclouds-services-template</artifactId>
+	<version>0.1.0</version>
+	
+	<dependencies>
+		
+		<dependency>
+			<!-- NOTE:  Included just for example, not actually used!  -->
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>1.7.12</version>
+		</dependency>
+		
+	</dependencies>
+	
+	<build>
+		<plugins>
+			
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					
+					<execution>
+						<id>jar-with-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<attach>true</attach>
+							<archive>
+								<manifest>
+									<!-- NOTE:  Replace with the proper main class! -->
+									<mainClass>RunService</mainClass>
+								</manifest>
+							</archive>
+							<descriptorRefs>
+								<descriptorRef>jar-with-dependencies</descriptorRef>
+							</descriptorRefs>
+						</configuration>
+					</execution>
+					
+					<execution>
+						<id>distribution-tar-gz</id>
+						<phase>package</phase>
+						<goals>
+							<goal>attached</goal>
+						</goals>
+						<configuration>
+							<attach>true</attach>
+							<appendAssemblyId>false</appendAssemblyId>
+							<descriptor>src/assembly/distribution-tar-gz.xml</descriptor>
+						</configuration>
+					</execution>
+					
+				</executions>
+			</plugin>
+			
+		</plugins>
+	</build>
+	
+</project>
