@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration debug="false">
+	
+	<property name="levels.default" value="info" />
+	
+	<property name="levels.root" value="${levels.default}" />
+	
+	<property name="encoder.pattern"
+		value="[%d{yyyy-MM-dd HH:mm:ss.SSS}][%-5level][%-40.40logger{32}]  %replace(%msg){'\n|\r', ' // '}%n%xEx" />
+	
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<target>System.err</target>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>${encoder.pattern}</pattern>
+			<charset>utf-8</charset>
+		</encoder>
+	</appender>
+	
+	<root level="${levels.root}">
+		<appender-ref ref="console" />
+	</root>
+	
+</configuration>
