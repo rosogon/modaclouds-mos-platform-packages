@@ -128,6 +128,9 @@ _environment+=(
 		# NOTE:  Add here the environment variables you want to pass to the actual process.
 		#   (I.e. just defining them in the previous sections doesn't export them.)
 		
+		# NOTE:  No other variables, except the ones present in the `_environment` array are exported to the service.
+		#   (I.e. the service starts with a clean environment.)
+		
 		MODACLOUDS_SERVICE_X_ENDPOINT_IP="${_SERVICE_X_ENDPOINT_IP}"
 		MODACLOUDS_SERVICE_X_ENDPOINT_PORT="${_SERVICE_X_ENDPOINT_PORT}"
 		
