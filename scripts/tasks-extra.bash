@@ -15,6 +15,8 @@ modaclouds-services-load-balancer-controller@package :
 modaclouds-services-load-balancer-reasoner@package :
 modaclouds-services-metric-explorer@package :
 modaclouds-services-metric-importer@package :
+modaclouds-services-models-at-runtime@package :
+modaclouds-services-history-db@package :
 
 modaclouds-services-knowledgebase@publish :
 modaclouds-services-monitoring-manager@publish :
@@ -25,6 +27,8 @@ modaclouds-services-load-balancer-controller@publish :
 modaclouds-services-load-balancer-reasoner@publish :
 modaclouds-services-metric-explorer@publish :
 modaclouds-services-metric-importer@publish :
+modaclouds-services-models-at-runtime@publish :
+modaclouds-services-history-db@publish :
 
 EOS
 
