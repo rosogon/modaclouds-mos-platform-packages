@@ -81,9 +81,9 @@
 		"resources:modaclouds:url:base" : "http://ftp.modaclouds.eu/public",
 		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/distribution/mrt/@{definitions:versions:distribution}",
 		
-		"environment:SERVICE_MRT_DISTRIBUTION" : "@{package:root}/lib/distribution",
-		"environment:SERVICE_MRT_ENDPOINT_IP" : "0.0.0.0",
-		"environment:SERVICE_MRT_ENDPOINT_PORT" : "9030",
+		"environment:MRT_DISTRIBUTION" : "@{package:root}/lib/distribution",
+		"environment:MRT_ENDPOINT_IP" : "0.0.0.0",
+		"environment:MRT_ENDPOINT_PORT" : "9030",
 		
 		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7-32bit",
 		"environment:PATH" : "@{definitions:environment:JAVA_HOME}/bin:/usr/bin:/bin",
