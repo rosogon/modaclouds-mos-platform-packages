@@ -1,0 +1,92 @@
+{
+	"_schema" : "tag:ieat.ro,2014:mosaic:v2:mos-package-builder:descriptors:composite-package",
+	"_schema/version" : 1,
+	
+	"package" : {
+		"name" : "@{definitions:package:name}",
+		"version" : "@{definitions:package:version}",
+		"release" : "@{definitions:package:release}",
+		"architecture" : "i686",
+		"root" : "/opt/@{package:identifier}"
+	},
+	
+	"dependencies" : {
+		"requires" : [
+			"mosaic-rt-jre-7-32bit"
+		]
+	},
+	
+	"miscellaneous" : {
+		"license" : "apache-2.0",
+		"url" : "http://www.modaclouds.eu/",
+		"summary" : "MODAClouds services: Models@@RunTime (@{definitions:versions:distribution})"
+	},
+	
+	"overlays" : [
+		{
+			"generator" : "folders",
+			"target" : "@{package:root}",
+			"folders" : [
+				"/",
+				"/bin",
+				"/lib",
+				"/lib/distribution",
+				"/lib/scripts"
+			]
+		},
+		{
+			"generator" : "symlinks",
+			"target" : "@{package:root}/bin",
+			"links" : {
+				"@{package:name}--run-service" : "../lib/scripts/run.bash"
+			}
+		},
+		{
+			"generator" : "unarchiver",
+			"target" : "@{package:root}/lib/distribution",
+			"resource" : "distribution.tar.gz",
+			"format" : "tar+gzip",
+			"options" : {
+				"strip-components" : 1
+			}
+		},
+		{
+			"generator" : "file-creator",
+			"target" : "@{package:root}/lib/scripts/run.bash",
+			"resource" : "service-run.bash",
+			"executable" : true,
+			"expand" : true
+		}
+	],
+	
+	"resources" : {
+		"service-run.bash" : {
+			"generator" : "sources",
+			"path" : "service-run.bash"
+		},
+		"distribution.tar.gz" : {
+			"generator" : "fetcher",
+			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/distribution.tar.gz"
+		}
+	},
+	
+	"definitions" : {
+		
+		"package:name" : "modaclouds-service-models-at-runtime",
+		"package:version" : "0.7.0_dev",
+		"package:release" : "@{execution:timestamp}",
+		
+		"versions:distribution" : "0.1.0",
+		
+		"resources:modaclouds:url:base" : "http://ftp.modaclouds.eu/public",
+		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/distribution/mrt/@{definitions:versions:distribution}",
+		
+		"environment:SERVICE_MRT_DISTRIBUTION" : "@{package:root}/lib/distribution",
+		"environment:SERVICE_MRT_ENDPOINT_IP" : "0.0.0.0",
+		"environment:SERVICE_MRT_ENDPOINT_PORT" : "9030",
+		
+		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7-32bit",
+		"environment:PATH" : "@{definitions:environment:JAVA_HOME}/bin:/usr/bin:/bin",
+		"environment:TMPDIR" : "/tmp/modaclouds/@{package:identifier}"
+	}
+}
