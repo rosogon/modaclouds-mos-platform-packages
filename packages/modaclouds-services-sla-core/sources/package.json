@@ -48,8 +48,8 @@
 		"environment:MYSQL_ENDPOINT_IP": "0.0.0.0",
 		"environment:MYSQL_ENDPOINT_PORT": "3036",
 		"environment:MYSQL_DATABASE": "atossla",
-		"environment:MYSQL_USERNAME": "root",
-		"environment:MYSQL_PASSWORD": "pwd",
+		"environment:MYSQL_USERNAME": "atossla",
+		"environment:MYSQL_PASSWORD": "_atossla_",
 
 		"environment:BIN": "@{package:root}/bin",
 		"environment:LIB": "@{package:root}/lib",
