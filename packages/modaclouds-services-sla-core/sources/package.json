@@ -19,13 +19,55 @@
 	"miscellaneous" : {
 		"license" : "apache-2.0",
 		"url" : "http://www.modaclouds.eu/",
-		"summary" : "MODAClouds services: SLA Core (@{definitions:versions:modaclouds:slacore})"
+		"summary" : "MODAClouds services: SLA Core (@{definitions:versions:distribution})"
 	},
 	
 	"overlays" : [
+		{
+			"generator" : "folders",
+			"target" : "@{package:root}",
+			"folders" : [
+				"/",
+				"/bin",
+				"/lib",
+				"/lib/distribution",
+				"/lib/scripts"
+			]
+		},
+		{
+			"generator" : "symlinks",
+			"target" : "@{package:root}/bin",
+			"links" : {
+				"@{package:name}--run-service" : "../lib/scripts/run.bash"
+			}
+		},
+		{
+			"generator" : "unarchiver",
+			"target" : "@{package:root}/lib/distribution",
+			"resource" : "distribution.tar.gz",
+			"format" : "tar+gzip",
+			"options" : {
+				"strip-components" : 1
+			}
+		},
+		{
+			"generator" : "file-creator",
+			"target" : "@{package:root}/lib/scripts/run.bash",
+			"resource" : "service-run.bash",
+			"executable" : true,
+			"expand" : true
+		}
 	],
 	
 	"resources" : {
+		"service-run.bash" : {
+			"generator" : "sources",
+			"path" : "service-run.bash"
+		},
+		"distribution.tar.gz" : {
+			"generator" : "fetcher",
+			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/sla-core-distribution.tar.gz"
+		}
 	},
 	
 	"definitions" : {
@@ -34,13 +76,13 @@
 		"package:version" : "0.3.0",
 		"package:release" : "@{execution:timestamp}",
 		
-		"versions:modaclouds:sla-core" : "0.3.0",
+		"versions:distribution" : "0.3.0",
 		
-		"resources:modaclouds:url:base" : "http://data.volution.ro/modaclouds/public",
-		"resources:modaclouds:url:dependencies" : "XXX",
+		"resources:modaclouds:url:base" : "http://ftp.modaclouds.eu/public",
+		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/distribution/sla-core/@{definitions:versions:distribution}",
 
 		"environment:SLACORE_ENDPOINT_IP": "0.0.0.0",
-		"environment:SLACORE_ENDPOINT_PORT": "8090",
+		"environment:SLACORE_ENDPOINT_PORT": "9040",
 		
 		"environment:MONITORING_MANAGER_ENDPOINT_IP": "0.0.0.0",
 		"environment:MONITORING_MANAGER_ENDPOINT_PORT": "8082",
