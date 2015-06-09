@@ -1,0 +1,79 @@
+{
+	"_schema" : "tag:ieat.ro,2014:mosaic:v2:mos-package-builder:descriptors:composite-package",
+	"_schema/version" : 1,
+
+	"package" : {
+		"name" : "@{definitions:package:name}",
+		"version" : "@{definitions:package:version}",
+		"release" : "@{definitions:package:release}",
+		"architecture" : "i686",
+		"root" : "/opt/@{package:identifier}"
+	},
+
+	"dependencies" : {
+		"provides" : ["@{definitions:package:name}"],
+		"requires" : [
+			"mosaic-rt-jre-7"
+		]
+	},
+
+	"miscellaneous" : {
+		"license" : "apache-2.0",
+		"url" : "http://www.modaclouds.eu/",
+		"summary" : "MODAClouds tools: MDLoad (@{definitions:distribution:version})"
+	},
+
+	"overlays" : [
+		{
+			"generator" : "folders",
+			"target" : "@{package:root}",
+			"folders" : [
+				"/",
+				"/lib",
+				"/lib/distribution",
+				"/lib/distribution/mdl",
+				"/lib/distribution/mdload"
+			]
+		},
+		{
+			"generator" : "unarchiver",
+			"target" : "@{package:root}/lib/distribution/mdl",
+			"resource" : "mdl.tar.gz",
+			"format" : "tar+gzip",
+			"options" : {
+				"strip-components" : 3
+			}
+		},
+		{
+			"generator" : "unarchiver",
+			"target" : "@{package:root}/lib/distribution/mdload",
+			"resource" : "mdload.tar.gz",
+			"format" : "tar+gzip",
+			"options" : {
+				"strip-components" : 2
+			}
+		}
+	],
+
+	"resources" : {
+		"mdl.tar.gz" : {
+			"generator" : "fetcher",
+			"uri" : "@{definitions:distribution:url:base}/mdl.tar.gz"
+		},
+		"mdload.tar.gz" : {
+			"generator" : "fetcher",
+			"uri" : "@{definitions:distribution:url:base}/mdload.tar.gz"
+		}
+	},
+
+	"definitions" : {
+		
+		"package:name" : "modaclouds-tools-mdload",
+		"package:version" : "@{definitions:resources:distribution:version}",
+		"package:release" : "@{execution:timestamp}",
+		
+		"distribution:name" : "mdload",
+		"distribution:version" : "0.1.0",
+		"distribution:url:base" : "http://ftp.modaclouds.eu/public/distribution/@{definitions:distribution:name}/@{definitions:distribution:version}"
+	}
+}

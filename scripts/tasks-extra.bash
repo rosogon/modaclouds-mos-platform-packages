@@ -17,6 +17,7 @@ modaclouds-services-metric-explorer@package :
 modaclouds-services-metric-importer@package :
 modaclouds-services-models-at-runtime@package :
 modaclouds-services-history-db@package :
+modaclouds-tools-mdload@package :
 
 modaclouds-services-knowledgebase@publish :
 modaclouds-services-monitoring-manager@publish :
@@ -29,6 +30,7 @@ modaclouds-services-metric-explorer@publish :
 modaclouds-services-metric-importer@publish :
 modaclouds-services-models-at-runtime@publish :
 modaclouds-services-history-db@publish :
+modaclouds-tools-mdload@publish :
 
 EOS
 
