@@ -19,7 +19,7 @@
 	"miscellaneous" : {
 		"license" : "apache-2.0",
 		"url" : "http://www.modaclouds.eu/",
-		"summary" : "MODAClouds X (@{definitions:versions:distribution})"
+		"summary" : "MODAClouds X (@{definitions:distribution:version})"
 	},
 	
 	"overlays" : [
@@ -66,20 +66,19 @@
 		},
 		"distribution.tar.gz" : {
 			"generator" : "fetcher",
-			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/distribution.tar.gz"
+			"uri" : "@{definitions:distribution:url:base}/distribution.tar.gz"
 		}
 	},
 	
 	"definitions" : {
 		
 		"package:name" : "_modaclouds-services-template",
-		"package:version" : "0.8.0_dev",
+		"package:version" : "0.0.0-@{definitions:distribution:version}",
 		"package:release" : "@{execution:timestamp}",
 		
-		"versions:distribution" : "0.1.0",
-		
-		"resources:modaclouds:url:base" : "http://data.volution.ro/modaclouds/public",
-		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies/@{definitions:package:name}/@{definitions:versions:distribution}",
+		"distribution:name" : "example",
+		"distribution:version" : "0.1.0",
+		"distribution:url:base" : "http://ftp.modaclouds.eu/public/distribution/@{definitions:distribution:name}/@{definitions:distribution:version}"
 		
 		"environment:SERVICE_X_DISTRIBUTION" : "@{package:root}/lib/distribution",
 		"environment:SERVICE_X_ENDPOINT_IP" : "0.0.0.0",
