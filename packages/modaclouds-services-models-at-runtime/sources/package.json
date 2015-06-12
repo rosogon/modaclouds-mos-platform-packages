@@ -12,14 +12,14 @@
 	
 	"dependencies" : {
 		"requires" : [
-			"mosaic-rt-jre-7-32bit"
+			"mosaic-rt-jre-7"
 		]
 	},
 	
 	"miscellaneous" : {
 		"license" : "apache-2.0",
 		"url" : "http://www.modaclouds.eu/",
-		"summary" : "MODAClouds services: Models@@RunTime (@{definitions:versions:distribution})"
+		"summary" : "MODAClouds services: Models@@RunTime (@{definitions:distribution:version})"
 	},
 	
 	"overlays" : [
@@ -47,7 +47,7 @@
 			"resource" : "distribution.tar.gz",
 			"format" : "tar+gzip",
 			"options" : {
-				"strip-components" : 1
+				"strip-components" : 0
 			}
 		},
 		{
@@ -60,13 +60,13 @@
 	],
 	
 	"resources" : {
-		"service-run.bash" : {
-			"generator" : "sources",
-			"path" : "service-run.bash"
-		},
 		"distribution.tar.gz" : {
 			"generator" : "fetcher",
-			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/distribution.tar.gz"
+			"uri" : "@{definitions:distribution:url:base}/distribution.tar.gz"
+		},
+		"service-run.bash" : {
+			"generator" : "fetcher",
+			"uri" : "@{definitions:distribution:url:base}/service-run.bash"
 		}
 	},
 	
@@ -76,14 +76,20 @@
 		"package:version" : "0.7.0_dev",
 		"package:release" : "@{execution:timestamp}",
 		
-		"versions:distribution" : "0.1.0",
-		
-		"resources:modaclouds:url:base" : "http://ftp.modaclouds.eu/public",
-		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/distribution/mrt/@{definitions:versions:distribution}",
+		"distribution:name" : "mrt",
+		"distribution:version" : "0.2.0",
+		"distribution:url:root" : "http://ftp.modaclouds.eu/public/distributions",
+		"distribution:url:base" : "@{definitions:distribution:url:root}/@{definitions:distribution:name}/@{definitions:distribution:version}",
 		
 		"environment:MRT_DISTRIBUTION" : "@{package:root}/lib/distribution",
 		"environment:MRT_ENDPOINT_IP" : "0.0.0.0",
 		"environment:MRT_ENDPOINT_PORT" : "9030",
+		
+		"environment:MODACLOUDS_MONITORING_MANAGER_ENDPOINT_IP" : "0.0.0.0",
+		"environment:MODACLOUDS_MONITORING_MANAGER_ENDPOINT_PORT" : "8082",
+		
+		"environment:MODACLOUDS_LOAD_BALANCER_CONTROLLER_ENDPOINT_IP" : "0.0.0.0",
+		"environment:MODACLOUDS_LOAD_BALANCER_CONTROLLER_ENDPOINT_PORT" : "8088",
 		
 		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7-32bit",
 		"environment:PATH" : "@{definitions:environment:JAVA_HOME}/bin:/usr/bin:/bin",

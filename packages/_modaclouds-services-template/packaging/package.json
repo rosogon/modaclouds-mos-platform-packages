@@ -12,7 +12,7 @@
 	
 	"dependencies" : {
 		"requires" : [
-			"mosaic-rt-jre-7-32bit"
+			"mosaic-rt-jre-7"
 		]
 	},
 	
@@ -60,13 +60,13 @@
 	],
 	
 	"resources" : {
-		"service-run.bash" : {
-			"generator" : "sources",
-			"path" : "service-run.bash"
-		},
 		"distribution.tar.gz" : {
 			"generator" : "fetcher",
 			"uri" : "@{definitions:distribution:url:base}/distribution.tar.gz"
+		},
+		"service-run.bash" : {
+			"generator" : "fetcher",
+			"uri" : "@{definitions:distribution:url:base}/service-run.bash"
 		}
 	},
 	
@@ -78,7 +78,8 @@
 		
 		"distribution:name" : "example",
 		"distribution:version" : "0.1.0",
-		"distribution:url:base" : "http://ftp.modaclouds.eu/public/distribution/@{definitions:distribution:name}/@{definitions:distribution:version}"
+		"distribution:url:base" : "http://ftp.modaclouds.eu/public/distributions"
+		"distribution:url:base" : "@{distribution:url:root}/@{definitions:distribution:name}/@{definitions:distribution:version}"
 		
 		"environment:SERVICE_X_DISTRIBUTION" : "@{package:root}/lib/distribution",
 		"environment:SERVICE_X_ENDPOINT_IP" : "0.0.0.0",
