@@ -1,7 +1,7 @@
 {
 	"_schema" : "tag:ieat.ro,2014:mosaic:v2:mos-package-builder:descriptors:composite-package",
 	"_schema/version" : 1,
-
+	
 	"package" : {
 		"name" : "@{definitions:package:name}",
 		"version" : "@{definitions:package:version}",
@@ -9,20 +9,19 @@
 		"architecture" : "i686",
 		"root" : "/opt/@{package:identifier}"
 	},
-
+	
 	"dependencies" : {
 		"provides" : ["@{definitions:package:name}"],
 		"requires" : [
-			"mosaic-rt-jre-7"
 		]
 	},
-
+	
 	"miscellaneous" : {
 		"license" : "apache-2.0",
 		"url" : "http://www.modaclouds.eu/",
 		"summary" : "MODAClouds tools: MDLoad (@{definitions:distribution:version})"
 	},
-
+	
 	"overlays" : [
 		{
 			"generator" : "folders",
@@ -54,7 +53,7 @@
 			}
 		}
 	],
-
+	
 	"resources" : {
 		"mdl.tar.gz" : {
 			"generator" : "fetcher",
@@ -65,7 +64,7 @@
 			"uri" : "@{definitions:distribution:url:base}/mdload.tar.gz"
 		}
 	},
-
+	
 	"definitions" : {
 		
 		"package:name" : "modaclouds-tools-mdload",
