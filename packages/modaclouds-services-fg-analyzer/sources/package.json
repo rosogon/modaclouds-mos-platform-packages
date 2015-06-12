@@ -19,7 +19,7 @@
 	"miscellaneous" : {
 		"license" : "apache-2.0",
 		"url" : "http://www.modaclouds.eu/",
-		"summary" : "MODAClouds X (@{definitions:distribution:version})"
+		"summary" : "MODAClouds services: FG analyzer (@{definitions:distribution:version})"
 	},
 	
 	"overlays" : [
@@ -28,18 +28,9 @@
 			"target" : "@{package:root}",
 			"folders" : [
 				"/",
-				"/bin",
 				"/lib",
-				"/lib/distribution",
-				"/lib/scripts"
+				"/lib/distribution"
 			]
-		},
-		{
-			"generator" : "symlinks",
-			"target" : "@{package:root}/bin",
-			"links" : {
-				"@{package:name}--run-service" : "../lib/scripts/run.bash"
-			}
 		},
 		{
 			"generator" : "unarchiver",
@@ -47,15 +38,8 @@
 			"resource" : "distribution.tar.gz",
 			"format" : "tar+gzip",
 			"options" : {
-				"strip-components" : 1
+				"strip-components" : 0
 			}
-		},
-		{
-			"generator" : "file-creator",
-			"target" : "@{package:root}/lib/scripts/run.bash",
-			"resource" : "service-run.bash",
-			"executable" : true,
-			"expand" : true
 		}
 	],
 	
@@ -63,30 +47,19 @@
 		"distribution.tar.gz" : {
 			"generator" : "fetcher",
 			"uri" : "@{definitions:distribution:url:base}/distribution.tar.gz"
-		},
-		"service-run.bash" : {
-			"generator" : "fetcher",
-			"uri" : "@{definitions:distribution:url:base}/service-run.bash"
 		}
 	},
 	
 	"definitions" : {
 		
-		"package:name" : "_modaclouds-services-template",
+		"package:name" : "modaclouds-services-fg-analyzer",
 		"package:version" : "0.0.0-@{definitions:distribution:version}",
 		"package:release" : "@{execution:timestamp}",
 		
-		"distribution:name" : "example",
-		"distribution:version" : "0.1.0",
+		"distribution:name" : "fg-analyzer",
+		"distribution:version" : "1.0.0",
 		"distribution:url:root" : "http://ftp.modaclouds.eu/public/distributions",
 		"distribution:url:base" : "@{definitions:distribution:url:root}/@{definitions:distribution:name}/@{definitions:distribution:version}",
-		
-		"environment:SERVICE_X_DISTRIBUTION" : "@{package:root}/lib/distribution",
-		"environment:SERVICE_X_ENDPOINT_IP" : "0.0.0.0",
-		"environment:SERVICE_X_ENDPOINT_PORT" : "8082",
-		
-		"environment:SERVICE_Y_ENDPOINT_IP" : "0.0.0.0",
-		"environment:SERVICE_Y_ENDPOINT_PORT" : "8083",
 		
 		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7",
 		"environment:PATH" : "@{definitions:environment:JAVA_HOME}/bin:/usr/bin:/bin",
