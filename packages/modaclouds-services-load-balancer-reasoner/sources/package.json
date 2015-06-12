@@ -20,7 +20,7 @@
 	"miscellaneous" : {
 		"license" : "apache-2.0",
 		"url" : "http://www.modaclouds.eu/",
-		"summary" : "MODAClouds services: load-balancer reasoner (@{definitions:versions:modaclouds:lb-reasoner})"
+		"summary" : "MODAClouds services: load-balancer reasoner (@{definitions:distribution:version})"
 	},
 	
 	"overlays" : [
@@ -54,10 +54,10 @@
 		{
 			"generator" : "unarchiver",
 			"target" : "@{package:root}/lib/lb-reasoner",
-			"resource" : "lb-reasoner-distribution.tar.gz",
+			"resource" : "distribution.tar.gz",
 			"format" : "tar+gzip",
 			"options" : {
-				"strip-components" : 1
+				"strip-components" : 0
 			}
 		},
 		{
@@ -70,7 +70,7 @@
 		{
 			"generator" : "file-creator",
 			"target" : "@{package:root}/etc/lb-reasoner/configuration_LB.xml",
-			"resource" : "lb-reasoner-configuration.xml",
+			"resource" : "configuration.xml",
 			"executable" : false,
 			"expand" : true
 		}
@@ -81,11 +81,11 @@
 			"generator" : "sources",
 			"path" : "service-run.bash"
 		},
-		"lb-reasoner-distribution.tar.gz" : {
+		"distribution.tar.gz" : {
 			"generator" : "fetcher",
-			"uri" : "@{definitions:resources:modaclouds:url:distributions}/distribution.tar.gz"
+			"uri" : "@{definitions:distribution:url:base}/distribution.tar.gz"
 		},
-		"lb-reasoner-configuration.xml" : {
+		"configuration.xml" : {
 			"generator" : "sources",
 			"path" : "lb-reasoner-configuration.xml"
 		}
@@ -97,10 +97,10 @@
 		"package:version" : "0.7.0_dev",
 		"package:release" : "@{execution:timestamp}",
 		
-		"versions:modaclouds:lb-reasoner" : "1.0",
-		
-		"resources:modaclouds:url:base" : "http://data.volution.ro/modaclouds/public",
-		"resources:modaclouds:url:distributions" : "@{definitions:resources:modaclouds:url:base}/distributions/@{definitions:package:name}/@{definitions:versions:modaclouds:lb-reasoner}",
+		"distribution:name" : "lb-reasoner",
+		"distribution:version" : "2.0",
+		"distribution:url:root" : "http://ftp.modaclouds.eu/public/distributions",
+		"distribution:url:base" : "@{definitions:distribution:url:root}/@{definitions:distribution:name}/@{definitions:distribution:version}",
 		
 		"environment:LB_REASONER_HOME" : "@{package:root}/lib/lb-reasoner",
 		"environment:LB_REASONER_CONF" : "@{package:root}/etc/lb-reasoner",

@@ -61,13 +61,13 @@
 	],
 	
 	"resources" : {
-		"distribution.tar.gz" : {
-			"generator" : "fetcher",
-			"uri" : "@{definitions:distribution:url:base}/distribution.tar.gz"
-		},
 		"service-run.bash" : {
 			"generator" : "fetcher",
 			"uri" : "@{definitions:distribution:url:base}/service-run.bash"
+		},
+		"distribution.tar.gz" : {
+			"generator" : "fetcher",
+			"uri" : "@{definitions:distribution:url:base}/distribution.tar.gz"
 		}
 	},
 	
