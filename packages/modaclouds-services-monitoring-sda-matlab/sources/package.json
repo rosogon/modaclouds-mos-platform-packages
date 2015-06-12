@@ -90,8 +90,10 @@
 		"package:version" : "0.7.0_dev",
 		"package:release" : "@{execution:timestamp}",
 		
+		"distribution:name" : "sda-matlab",
 		"distribution:version" : "1.3.0",
-		"distribution:url:base" : "http://ftp.modaclouds.eu/public/distributions/sda-matlab/@{definitions:distribution:version}",
+		"distribution:url:root" : "http://ftp.modaclouds.eu/public/distributions",
+		"distribution:url:base" : "@{definitions:distribution:url:root}/@{definitions:distribution:name}/@{definitions:distribution:version}",
 		
 		"environment:SDA_MATLAB_HOME" : "@{package:root}/lib/sda-matlab",
 		"environment:SDA_MATLAB_CONF" : "@{package:root}/etc/sda-matlab",

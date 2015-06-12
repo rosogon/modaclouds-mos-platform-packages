@@ -83,8 +83,10 @@
 		"package:version" : "0.7.0_dev",
 		"package:release" : "@{execution:timestamp}",
 		
+		"distribution:name" : "sda-weka",
 		"distribution:version" : "1.2",
-		"distribution:url:base" : "http://ftp.modaclouds.eu/public/distributions/sda-weka/@{definitions:distribution:version}",
+		"distribution:url:root" : "http://ftp.modaclouds.eu/public/distributions",
+		"distribution:url:base" : "@{definitions:distribution:url:root}/@{definitions:distribution:name}/@{definitions:distribution:version}",
 		
 		"environment:SDA_WEKA_HOME" : "@{package:root}/lib/sda-weka",
 		"environment:SDA_WEKA_ENDPOINT_IP" : "0.0.0.0",

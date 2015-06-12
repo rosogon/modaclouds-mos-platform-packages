@@ -73,6 +73,7 @@
 		
 		"distribution:name" : "mdload",
 		"distribution:version" : "0.1.0",
-		"distribution:url:base" : "http://ftp.modaclouds.eu/public/distribution/@{definitions:distribution:name}/@{definitions:distribution:version}"
+		"distribution:url:root" : "http://ftp.modaclouds.eu/public/distribution",
+		"distribution:url:base" : "@{definitions:distribution:url:root}/@{definitions:distribution:name}/@{definitions:distribution:version}"
 	}
 }
