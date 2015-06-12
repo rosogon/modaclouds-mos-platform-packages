@@ -100,7 +100,7 @@
 		"environment:KNOWLEDGEBASE_DATASET_PATH" : "/modaclouds/kb",
 		"environment:KNOWLEDGEBASE_SYNC_PERIOD" : "6",
 		
-		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7-32bit",
+		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7",
 		"environment:PATH" : "@{definitions:environment:JAVA_HOME}/bin:/usr/bin:/bin",
 		"environment:TMPDIR" : "/tmp/modaclouds/@{package:identifier}"
 	}

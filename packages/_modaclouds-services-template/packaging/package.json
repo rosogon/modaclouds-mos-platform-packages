@@ -88,7 +88,7 @@
 		"environment:SERVICE_Y_ENDPOINT_IP" : "0.0.0.0",
 		"environment:SERVICE_Y_ENDPOINT_PORT" : "8083",
 		
-		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7-32bit",
+		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7",
 		"environment:PATH" : "@{definitions:environment:JAVA_HOME}/bin:/usr/bin:/bin",
 		"environment:TMPDIR" : "/tmp/modaclouds/@{package:identifier}"
 	}

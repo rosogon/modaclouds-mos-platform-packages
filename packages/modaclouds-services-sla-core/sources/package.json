@@ -13,6 +13,7 @@
 	"dependencies" : {
 		"provides" : ["@{definitions:package:name}"],
 		"requires" : [
+			"mosaic-rt-jre-7"
 		]
 	},
 	
@@ -95,7 +96,7 @@
 		
 		"environment:BIN": "@{package:root}/bin",
 		"environment:LIB": "@{package:root}/lib",
-		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7-32bit",
+		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7",
 		"environment:PATH" : "@{definitions:environment:JAVA_HOME}/bin:/usr/bin:/bin",
 		"environment:TMPDIR" : "/tmp/modaclouds/@{package:identifier}"
 	}
