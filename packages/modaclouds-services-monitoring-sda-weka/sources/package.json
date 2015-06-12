@@ -12,14 +12,14 @@
 	
 	"dependencies" : {
 		"requires" : [
-			"mosaic-rt-jre-7-32bit"
+			"mosaic-rt-jre-7"
 		]
 	},
 	
 	"miscellaneous" : {
 		"license" : "apache-2.0",
 		"url" : "http://www.modaclouds.eu/",
-		"summary" : "MODAClouds services: monitoring SDA Weka (@{definitions:versions:modaclouds:sda-weka})"
+		"summary" : "MODAClouds services: monitoring SDA Weka (@{definitions:distribution:version})"
 	},
 	
 	"overlays" : [
@@ -49,11 +49,20 @@
 			}
 		},
 		{
-			"generator" : "file-creator",
-			"target" : "@{package:root}/lib/sda-weka/service.jar",
-			"resource" : "sda-weka-service.jar",
-			"executable" : false,
-			"expand" : false
+			"generator" : "unarchiver",
+			"target" : "@{package:root}/lib/sda-weka",
+			"resource" : "distribution.tar.gz",
+			"format" : "tar+gzip",
+			"options" : {
+				"strip-components" : 0
+			}
+		},
+		{
+			"generator" : "symlinks",
+			"target" : "@{package:root}/lib/sda-weka",
+			"links" : {
+				"service.jar" : "./sda-weka-@{definitions:distribution:version}.jar"
+			}
 		}
 	],
 	
@@ -62,9 +71,9 @@
 			"generator" : "sources",
 			"path" : "service-run.bash"
 		},
-		"sda-weka-service.jar" : {
+		"distribution.tar.gz" : {
 			"generator" : "fetcher",
-			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/service.jar"
+			"uri" : "@{definitions:distribution:url:base}/distribution.tar.gz"
 		}
 	},
 	
@@ -74,10 +83,8 @@
 		"package:version" : "0.7.0_dev",
 		"package:release" : "@{execution:timestamp}",
 		
-		"versions:modaclouds:sda-weka" : "1.1",
-		
-		"resources:modaclouds:url:base" : "http://data.volution.ro/modaclouds/public",
-		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies/@{definitions:package:name}/@{definitions:versions:modaclouds:sda-weka}",
+		"distribution:version" : "1.2",
+		"distribution:url:base" : "http://ftp.modaclouds.eu/public/distributions/sda-weka/@{definitions:distribution:version}",
 		
 		"environment:SDA_WEKA_HOME" : "@{package:root}/lib/sda-weka",
 		"environment:SDA_WEKA_ENDPOINT_IP" : "0.0.0.0",

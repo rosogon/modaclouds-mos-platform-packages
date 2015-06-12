@@ -20,7 +20,7 @@
 	"miscellaneous" : {
 		"license" : "apache-2.0",
 		"url" : "http://www.modaclouds.eu/",
-		"summary" : "MODAClouds services: monitoring SDA Matlab (@{definitions:versions:modaclouds:sda-matlab})"
+		"summary" : "MODAClouds services: monitoring SDA Matlab (@{definitions:distribution:version})"
 	},
 	
 	"overlays" : [
@@ -54,24 +54,16 @@
 		{
 			"generator" : "unarchiver",
 			"target" : "@{package:root}/lib/sda-matlab",
-			"resource" : "sda-matlab-distribution.tar.gz",
+			"resource" : "distribution.tar.gz",
 			"format" : "tar+gzip",
 			"options" : {
 				"strip-components" : 1
 			}
 		},
 		{
-			"generator" : "unlinks",
-			"target" : "@{package:root}/lib/sda-matlab",
-			"unlinks" : [
-				"/config.properties",
-				"/run_main.sh"
-			]
-		},
-		{
 			"generator" : "file-creator",
 			"target" : "@{package:root}/etc/sda-matlab/config.properties",
-			"resource" : "sda-matlab-config.properties",
+			"resource" : "config.properties",
 			"executable" : false,
 			"expand" : true
 		}
@@ -82,11 +74,11 @@
 			"generator" : "sources",
 			"path" : "service-run.bash"
 		},
-		"sda-matlab-distribution.tar.gz" : {
+		"distribution.tar.gz" : {
 			"generator" : "fetcher",
-			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/distribution.tar.gz"
+			"uri" : "@{definitions:distribution:url:base}/distribution.tar.gz"
 		},
-		"sda-matlab-config.properties" : {
+		"config.properties" : {
 			"generator" : "sources",
 			"path" : "sda-matlab-config.properties"
 		}
@@ -98,10 +90,8 @@
 		"package:version" : "0.7.0_dev",
 		"package:release" : "@{execution:timestamp}",
 		
-		"versions:modaclouds:sda-matlab" : "1.2.2",
-		
-		"resources:modaclouds:url:base" : "http://data.volution.ro/modaclouds/public",
-		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies/@{definitions:package:name}/@{definitions:versions:modaclouds:sda-matlab}",
+		"distribution:version" : "1.3.0",
+		"distribution:url:base" : "http://ftp.modaclouds.eu/public/distributions/sda-matlab/@{definitions:distribution:version}",
 		
 		"environment:SDA_MATLAB_HOME" : "@{package:root}/lib/sda-matlab",
 		"environment:SDA_MATLAB_CONF" : "@{package:root}/etc/sda-matlab",
