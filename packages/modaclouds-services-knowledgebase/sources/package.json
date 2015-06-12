@@ -76,7 +76,7 @@
 		"package:version" : "0.7.0_dev",
 		"package:release" : "@{execution:timestamp}",
 		
-		"versions:modaclouds:fuseki" : "1.1.1",
+		"versions:modaclouds:fuseki" : "1.1.2",
 		
 		"resources:modaclouds:url:base" : "http://data.volution.ro/modaclouds/public",
 		"resources:modaclouds:url:distributions" : "@{definitions:resources:modaclouds:url:base}/distributions/@{definitions:package:name}/@{definitions:versions:modaclouds:fuseki}",
