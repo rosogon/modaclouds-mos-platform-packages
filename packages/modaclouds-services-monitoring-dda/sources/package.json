@@ -64,7 +64,7 @@
 		},
 		"csparql-service.jar" : {
 			"generator" : "fetcher",
-			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/service.jar"
+			"uri" : "@{definitions:resources:modaclouds:url:distributions}/service.jar"
 		}
 	},
 	
@@ -77,7 +77,7 @@
 		"versions:modaclouds:csparql" : "0.4.6.1",
 		
 		"resources:modaclouds:url:base" : "http://data.volution.ro/modaclouds/public",
-		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies/@{definitions:package:name}/@{definitions:versions:modaclouds:csparql}",
+		"resources:modaclouds:url:distributions" : "@{definitions:resources:modaclouds:url:base}/distributions/@{definitions:package:name}/@{definitions:versions:modaclouds:csparql}",
 		
 		"environment:CSPARQL_HOME" : "@{package:root}/lib/csparql",
 		"environment:CSPARQL_ENDPOINT_IP" : "0.0.0.0",

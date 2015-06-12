@@ -83,7 +83,7 @@
 		},
 		"lb-reasoner-distribution.tar.gz" : {
 			"generator" : "fetcher",
-			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/distribution.tar.gz"
+			"uri" : "@{definitions:resources:modaclouds:url:distributions}/distribution.tar.gz"
 		},
 		"lb-reasoner-configuration.xml" : {
 			"generator" : "sources",
@@ -100,7 +100,7 @@
 		"versions:modaclouds:lb-reasoner" : "1.0",
 		
 		"resources:modaclouds:url:base" : "http://data.volution.ro/modaclouds/public",
-		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies/@{definitions:package:name}/@{definitions:versions:modaclouds:lb-reasoner}",
+		"resources:modaclouds:url:distributions" : "@{definitions:resources:modaclouds:url:base}/distributions/@{definitions:package:name}/@{definitions:versions:modaclouds:lb-reasoner}",
 		
 		"environment:LB_REASONER_HOME" : "@{package:root}/lib/lb-reasoner",
 		"environment:LB_REASONER_CONF" : "@{package:root}/etc/lb-reasoner",

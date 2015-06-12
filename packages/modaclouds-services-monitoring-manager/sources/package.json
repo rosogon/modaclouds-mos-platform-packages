@@ -64,7 +64,7 @@
 		},
 		"manager-service.jar" : {
 			"generator" : "fetcher",
-			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/service.jar"
+			"uri" : "@{definitions:resources:modaclouds:url:distributions}/service.jar"
 		}
 	},
 	
@@ -77,7 +77,7 @@
 		"versions:modaclouds:manager" : "1.2",
 		
 		"resources:modaclouds:url:base" : "http://data.volution.ro/modaclouds/public",
-		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies/@{definitions:package:name}/@{definitions:versions:modaclouds:manager}",
+		"resources:modaclouds:url:distributions" : "@{definitions:resources:modaclouds:url:base}/distributions/@{definitions:package:name}/@{definitions:versions:modaclouds:manager}",
 		
 		"environment:MANAGER_HOME" : "@{package:root}/lib/manager",
 		"environment:MANAGER_ENDPOINT_IP" : "0.0.0.0",
