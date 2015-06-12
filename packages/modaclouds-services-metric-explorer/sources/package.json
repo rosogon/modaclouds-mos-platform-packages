@@ -20,7 +20,7 @@
 	"miscellaneous" : {
 		"license" : "apache-2.0",
 		"url" : "http://www.modaclouds.eu/",
-		"summary" : "MODAClouds services: metric explorer (@{definitions:versions:modaclouds:metric-explorer})"
+		"summary" : "MODAClouds services: metric explorer (@{definitions:distribution:version})"
 	},
 	
 	"overlays" : [
@@ -150,7 +150,7 @@
 		},
 		"graphite-distribution.cpio.gz" : {
 			"generator" : "fetcher",
-			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/distribution.cpio.gz"
+			"uri" : "@{definitions:distribution:url:base}/distribution.cpio.gz"
 		},
 		"graphite-carbon.conf" : {
 			"generator" : "sources",
@@ -192,10 +192,9 @@
 		"package:version" : "0.7.0_dev",
 		"package:release" : "@{execution:timestamp}",
 		
-		"versions:modaclouds:metric-explorer" : "0.3",
-		
-		"resources:modaclouds:url:base" : "http://data.volution.ro/modaclouds/public",
-		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies/@{definitions:package:name}/@{definitions:versions:modaclouds:metric-explorer}",
+		"distribution:version" : "0.3",
+		"distribution:url:root" : "http://data.volution.ro/modaclouds/public/distributions",
+		"distribution:url:base" : "@{definitions:distribution:url:root}/@{definitions:package:name}/@{definitions:distribution:version}",
 		
 		"environment:GRAPHITE_ROOT" : "@{package:root}/lib/graphite",
 		"environment:GRAPHITE_CONF_DIR" : "@{package:root}/etc/graphite/carbon",

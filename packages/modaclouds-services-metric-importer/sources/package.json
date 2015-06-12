@@ -12,14 +12,14 @@
 	
 	"dependencies" : {
 		"requires" : [
-			"mosaic-rt-jre-7-32bit"
+			"mosaic-rt-jre-7"
 		]
 	},
 	
 	"miscellaneous" : {
 		"license" : "apache-2.0",
 		"url" : "http://www.modaclouds.eu/",
-		"summary" : "MODAClouds services: metric importer (@{definitions:versions:modaclouds:metric-importer})"
+		"summary" : "MODAClouds services: metric importer (@{definitions:distribution:version})"
 	},
 	
 	"overlays" : [
@@ -66,7 +66,7 @@
 		},
 		"importer-service.jar" : {
 			"generator" : "fetcher",
-			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/service.jar"
+			"uri" : "@{definitions:distribution:url:base}/service.jar"
 		}
 	},
 	
@@ -76,10 +76,9 @@
 		"package:version" : "0.7.0_dev",
 		"package:release" : "@{execution:timestamp}",
 		
-		"versions:modaclouds:metric-importer" : "1.0",
-		
-		"resources:modaclouds:url:base" : "http://data.volution.ro/modaclouds/public",
-		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies/@{definitions:package:name}/@{definitions:versions:modaclouds:metric-importer}",
+		"distribution:version" : "1.0",
+		"distribution:url:root" : "http://data.volution.ro/modaclouds/public/distributions",
+		"distribution:url:base" : "@{definitions:distribution:url:root}/@{definitions:package:name}/@{definitions:distribution:version}",
 		
 		"environment:IMPORTER_HOME" : "@{package:root}/lib/importer",
 		"environment:IMPORTER_ENDPOINT_IP" : "0.0.0.0",
