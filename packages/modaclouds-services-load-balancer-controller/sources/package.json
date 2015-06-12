@@ -84,11 +84,11 @@
 		},
 		"lb-controller-sources.tar.gz" : {
 			"generator" : "fetcher",
-			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/sources.tar.gz"
+			"uri" : "@{definitions:resources:modaclouds:url:distributions}/sources.tar.gz"
 		},
 		"lb-controller-virtualenv.tar.gz" : {
 			"generator" : "fetcher",
-			"uri" : "@{definitions:resources:modaclouds:url:dependencies}/virtualenv.tar.gz"
+			"uri" : "@{definitions:resources:modaclouds:url:distributions}/virtualenv.tar.gz"
 		}
 	},
 	
@@ -98,10 +98,10 @@
 		"package:version" : "0.7.0_dev",
 		"package:release" : "@{execution:timestamp}",
 		
-		"versions:modaclouds:lb-controller" : "0.2.5",
+		"versions:modaclouds:lb-controller" : "0.2.8",
 		
 		"resources:modaclouds:url:base" : "http://data.volution.ro/modaclouds/public",
-		"resources:modaclouds:url:dependencies" : "@{definitions:resources:modaclouds:url:base}/dependencies/@{definitions:package:name}/@{definitions:versions:modaclouds:lb-controller}",
+		"resources:modaclouds:url:distributions" : "@{definitions:resources:modaclouds:url:base}/distributions/@{definitions:package:name}/@{definitions:versions:modaclouds:lb-controller}",
 		
 		"environment:LB_CONTROLLER_HOME" : "@{package:root}/lib/lb-controller",
 		"environment:LB_CONTROLLER_CONF" : "@{package:root}/etc/lb-controller",
