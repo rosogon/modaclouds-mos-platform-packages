@@ -1,0 +1,102 @@
+{
+	"_schema" : "tag:ieat.ro,2014:mosaic:v2:mos-package-builder:descriptors:composite-package",
+	"_schema/version" : 1,
+	
+	"package" : {
+		"name" : "@{definitions:package:name}",
+		"version" : "@{definitions:package:version}",
+		"release" : "@{definitions:package:release}",
+		"architecture" : "i686",
+		"root" : "/opt/@{package:identifier}"
+	},
+	
+	"dependencies" : {
+		"provides" : ["@{definitions:package:name}"],
+		"requires" : [
+		]
+	},
+	
+	"miscellaneous" : {
+		"license" : "apache-2.0",
+		"url" : "http://www.modaclouds.eu/",
+		"summary" : "MODAClouds services: SLA core (@{definitions:distribution:version})"
+	},
+	
+	"overlays" : [
+		{
+			"generator" : "folders",
+			"target" : "@{package:root}",
+			"folders" : [
+				"/",
+				"/bin",
+				"/lib",
+				"/lib/distribution",
+				"/lib/scripts"
+			]
+		},
+		{
+			"generator" : "symlinks",
+			"target" : "@{package:root}/bin",
+			"links" : {
+				"@{package:name}--run-service" : "../lib/scripts/run.bash"
+			}
+		},
+		{
+			"generator" : "unarchiver",
+			"target" : "@{package:root}/lib/distribution",
+			"resource" : "distribution.tar.gz",
+			"format" : "tar+gzip",
+			"options" : {
+				"strip-components" : 0
+			}
+		},
+		{
+			"generator" : "file-creator",
+			"target" : "@{package:root}/lib/scripts/run.bash",
+			"resource" : "service-run.bash",
+			"executable" : true,
+			"expand" : true
+		}
+	],
+	
+	"resources" : {
+		"distribution.tar.gz" : {
+			"generator" : "fetcher",
+			"uri" : "@{definitions:distribution:url:base}/distribution.tar.gz"
+		},
+		"service-run.bash" : {
+			"generator" : "fetcher",
+			"uri" : "@{definitions:distribution:url:base}/service-run.bash"
+		}
+	},
+	
+	"definitions" : {
+		
+		"package:name" : "modaclouds-services-sla-core",
+		"package:version" : "@{definitions:resources:distribution:version}",
+		"package:release" : "@{execution:timestamp}",
+		
+		"distribution:name" : "sla-core",
+		"distribution:version" : "0.3.0",
+		"distribution:url:root" : "http://ftp.modaclouds.eu/public/distributions",
+		"distribution:url:base" : "@{definitions:distribution:url:root}/@{definitions:distribution:name}/@{definitions:distribution:version}",
+		
+		"environment:SLACORE_ENDPOINT_IP": "0.0.0.0",
+		"environment:SLACORE_ENDPOINT_PORT": "9040",
+		
+		"environment:MONITORING_MANAGER_ENDPOINT_IP": "0.0.0.0",
+		"environment:MONITORING_MANAGER_ENDPOINT_PORT": "8082",
+		
+		"environment:MYSQL_ENDPOINT_IP": "0.0.0.0",
+		"environment:MYSQL_ENDPOINT_PORT": "3036",
+		"environment:MYSQL_DATABASE": "atossla",
+		"environment:MYSQL_USERNAME": "atossla",
+		"environment:MYSQL_PASSWORD": "_atossla_",
+		
+		"environment:BIN": "@{package:root}/bin",
+		"environment:LIB": "@{package:root}/lib",
+		"environment:JAVA_HOME" : "/opt/mosaic-rt-jre-7-32bit",
+		"environment:PATH" : "@{definitions:environment:JAVA_HOME}/bin:/usr/bin:/bin",
+		"environment:TMPDIR" : "/tmp/modaclouds/@{package:identifier}"
+	}
+}
